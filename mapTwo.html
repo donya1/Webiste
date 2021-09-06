@@ -1,0 +1,6719 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>COVID-19 Policing and Homelessness Initiative</title>
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="shortcut icon" href="Styles/Images/icon.svg">
+	<link rel="stylesheet" href="Styles/allPagesStyle.css">
+	<link rel="stylesheet" href="Styles/map.css">
+
+	<style>
+
+		#map {
+        width: 100%;
+/*        position:absolute;
+        top:222px;
+        left:0px;*/
+        height:600px;
+        top:5px;
+    }
+
+		#menu {
+			background: #cbd2d3;
+			position: absolute;
+			z-index: 1;
+			top: 385px;
+			left: 10px;
+			border-radius: 3px;
+			width: 200px;
+			border: 1px solid rgba(0, 0, 0, 0.4);
+			font-family: 'Open Sans', sans-serif;
+			box-shadow:2px 2px 2px #b1b1b1;
+		}
+ 
+		#menu a {
+			font-size: 13px;
+			color: #b1b1b1;
+			display: block;
+			margin: 0;
+			padding: 0;
+			padding: 10px;
+			text-decoration: none;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+			text-align: center;
+		}
+ 
+		#menu a:last-child {
+			border: none;
+		}
+ 
+		#menu a:hover {
+			background-color: #cbd2d3;
+			color: #404040;
+		}
+ 
+		#menu a.active {
+			background-color: #f1f3f1;
+			color: #404040;
+		}
+ 
+		#menu a.active:hover {
+			background: #ffffff;
+			color: #b1b1b1;
+		}
+
+		#legend {
+			position:relative;
+			top:-539px;
+			left:10px;
+			width:332px;
+			height:159px;
+			background-color:#f1f3f1;
+			border-radius: 3px;
+			border: 1px solid rgba(0, 0, 0, 0.4);
+			box-shadow:2px 2px 2px #b1b1b1;
+      z-index:2;
+		}
+
+		#Con {
+			position:absolute;
+			bottom:0px;
+			left:10px;
+			padding:5px;
+			font-family:'Open Sans';
+			font-size:12px;
+      line-height:1.3;
+		}
+
+		.colorBox {
+			width:10px;
+			height:10px;
+			margin-bottom:10px;
+      border: 1px solid rgba(0, 0, 0, 0.25);
+      border-radius:50px;
+		}
+
+		.label {
+			float:left;
+			margin-top:-22px;
+			margin-left:17px;
+      width:290px;
+		}
+
+		#panBox {
+			background-color:#6a3d9a;
+		}
+
+		#obsBox {
+			background-color:#1f78b4;
+		}
+
+		#disBox {
+			background-color:#b2df8a;
+		}
+
+		#shltBox {
+			background-color:#33a02c;
+		}
+
+		#salBox {
+			background-color:#fb9a99;
+		}
+
+		#loiBox {
+			background-color:#e31a1c;
+		}
+
+		#sitBox {
+			background-color:#ff7f00;
+		}
+
+    .mobileLegend {
+      width:30px;
+      height:30px;
+      background: #f1f3f1;
+      z-index:3;
+      position:absolute;
+      top:340px;
+      left:50px;
+      box-shadow:2px 2px 2px #b1b1b1;
+      border-radius:3px;
+    }
+
+    .menuFilter{
+      height:30px;
+      width:30px;
+      background: #f1f3f1;
+      position:absolute;
+      top:340px;
+      left:10px;
+      box-shadow:2px 2px 2px #b1b1b1;
+      border-radius:3px;
+    }
+
+@media only screen and (min-width: 768px) {
+
+    #legend {
+      left:220px;
+    }
+
+}
+
+
+	</style>
+
+</head>
+
+<body>
+
+<img class="upperLogo" src="Styles/Images/smalllogo.png">
+
+	<a class="mobileTrig">			
+		<div class="container">
+  			<div class="bar1"></div>
+  			<div class="bar2"></div>
+  			<div class="bar3"></div>
+  		</div>
+  	</a>
+
+<div class="mobileMenu">
+	<a href="#" class="close"></a>
+	<ul>
+		<li><a href="index.html">About</a></li>
+		<li><a href="mapOne.html">Mapping Project</a></li>
+		<li><a href="research.html">Other Research</a></li>
+		<li><a href="news.html">News</a></li>
+		<li><a href="ourTeam.html">Our Team</a></li>
+		<li><a href="contact.html">Contact</a></li>
+	</ul>
+</div>
+
+<nav>
+	<ul>
+		<li><a href="index.html">About</a></li>
+		<li><a href="mapOnw.html">Mapping Project</a></li>
+		<li><a href="research.html">Other Research</a></li>
+		<li><a href="news.html">News</a></li>
+		<li><a href="ourTeam.html">Our Team</a></li>
+		<li><a href="contact.html">Contact</a></li>
+	</ul>
+</nav>
+
+<div class="mapNav">
+
+<div class="tabBar">
+	<a href="mapOne.html">By-Laws</a>
+	<a href="mapTwo.html">Offence Types</a>
+	<a href="mapThree.html">Offence Distribution</a>
+	<a href="indexTable.html">Index Table</a>
+</div>
+
+	<div class="mapParts">
+
+		<div id="map"></div>
+
+		<div id="menu"></div>
+
+    <button class="menuFilter"><i class="fa fa-filter" style="font-size:20px; color:#404040"></i></button>
+
+		<div id="legend">
+			<div id="Con">
+				<div id="pan"><div class="colorBox" id="panBox"></div><p class="label">Panhandling/Mendier</p></div>
+				<div id="obs"><div class="colorBox" id="obsBox"></div><p class="label">Obstructing/Provoquer une Obstruction</p></div>
+				<div id="dis"><div class="colorBox" id="disBox"></div><p class="label">Disorder/Occasionner des Troubles</p></div>
+				<div id="shlt"><div class="colorBox" id="shltBox"></div><p class="label">Sheltering/Construire un Abri de Fortune</p></div>
+				<div id="sal"><div class="colorBox" id="salBox"></div><p class="label">Salvaging/R&eacute;cup&eacute;rer et R&eacute;utiliser des D&eacute;chets</p></div>
+				<div id="loi"><div class="colorBox" id="loiBox"></div><p class="label">Loitering/Fl&acirc;ner</p></div>
+				<div id="sit"><div class="colorBox" id="sitBox"></div><p class="label">Resting or Sleeping/Se Reposer ou S'allonger au Sol</p></div>
+			</div>
+		</div>
+
+     <button class="mobileLegend"><i class="fa fa-list-ul" aria-hidden="true" style="font-size:15px; color:#404040"></i></button>
+
+	</div>
+
+</div>
+
+<div class="content">
+
+   <div class="writeUp">
+
+      <p class="par">Anti-homeless laws pose a very real threat to people experiencing homelessness. One widespread form of anti-homeless legislation is what we have documented as neo-vagrancy law (<a class="backgroundLaws" href="#">learn more below</a>). These anti-homeless laws punish people who are visibly poor and have no choice but to spend their time in public spaces. These anti-homeless laws include the following 7 offense types: panhandling, loitering, obstructing, salvaging, resting/sleeping, sheltering, and disorder. More info and descriptions of each offense can be found <a class="offenseTypeDescriptions" href="#">below.</a></p>
+
+      <h3 class="subtitle">77% of Canadians live in a jurisdiction with a Neo-Vagrancy Offence.</h3>
+
+      <p class="par"><a href="https://theconversation.com/policing-and-evicting-people-living-in-encampments-will-not-solve-homelessness-in-canada-158861">During the pandemic, enforcement of these laws continues to be a legal mechanism for displacing people experiencing homelessness from public spaces.</a>  Criminalisation of people who are homeless is in conflict with ensuring their health and safety and threatens their civil and human rights.</p>
+
+      <h3 class="subtitle">Our Data</h3>
+
+      <img class="infographic" src="Styles/Images/infographic.jpg">
+
+      <p class="par">The map and index on this page document neo-vagrancy offenses across Canada. Use the map and index to look up neo-vagrancy offenses in your town. </p>
+
+      <p class="par">Our mapping of neo-vagrancy laws in Canada is drawn primarily from the by-laws of municipalities. Current by-laws are posted on municipality websites for ‘research’ or ‘convenience’ purposes, with the limitation that they may contain errors or may not be up to date. Please contact us to report additions or corrections.</p>
+
+     <p class="par">In addition, Ontario and British Columbia both have province-wide <a href="https://www.homelesshub.ca/coalition-repeal-ontario%E2%80%99s-safe-streets-act-0"><span class="italic">Safe Streets Act</span></a> legislation that targets panhandling. Both of these provincial laws are included/counted as one point on the map, under the offence type of ‘panhandling’.</p>
+
+     <h3 class="subtitle" id="aboutOffenses">Neo-Vagrancy Offense Types</h3>
+
+      <p class="par">We have adhered to the following criteria in developing each neo-vagrancy offence type. </p>
+
+      <h3 class="subtitle">Panhandling <span class="span">('soliciting')</span></h3>
+
+      <p class="par">The map includes anti-panhandling and anti-begging laws. These laws prohibit soliciting money or something of value from pedestrians. Some of the laws completely prohibit panhandling, while others partially restrict it during certain times (e.g. after 5pm), in certain places (e.g. in a park), or along with certain behaviours (e.g. while sitting). Regardless of how narrowly they are written, we consider all panhandling by-laws to be discriminatory for two reasons: 1) they directly target an activity associated with homelessness and poverty, 2) pedestrians often give money to people perceived as being visibly needy in public space, even if that person is not actively soliciting donations.</p>
+
+      <p class="par">Also, while they are sometimes used against homeless people, we do not include laws whose purpose is to regulate activities that have a commercial aspect such as touting, trading, hawking, vending, peddling or busking. As well, we do not include soliciting carried out on a roadway, or a permitted or registered charity.</p>
+
+      <h3 class="subtitle">Loitering</h3>
+
+      <p class="par">All by-laws that explicitly prohibit loitering are included in the map. The prohibition on loitering is sometimes specifically against ‘lingering’ or standing around somewhere ‘without an apparent purpose’; in other cases, loitering is restricted to certain times and places (i.e. after sunset, inside parks). We have included all loitering prohibitions not just because they are very subjective, but also because any homeless person surviving in public space would automatically be a target of the law.</p>
+
+      <h3 class="subtitle" id="sub5">Obstructing</h3>
+
+      <p class="par" id="par12">Obstructing by-laws are a close cousin of loitering by-laws. They are very generally defined as bothering a pedestrian’s right to passage. While they are more specific than loitering by-laws, sometimes these laws are written in a way that is so vague and subjective that they could target homeless people who live in and survive in public space. We included these by-laws on the map. Obstructing offences can also be used to indirectly target people who are homeless by claiming that their personal possessions (such as a sleeping bag) pose a hazard to the public. </p>
+
+      <h3 class="subtitle">Salvaging <span class="span">('scavenging')</span></h3>
+
+      <p class="par">Salvaging by-laws prohibit homeless people from ‘picking-over’ and collecting from recycling and refuse containers for personal use – to find edible food or to collect bottles and cans that have recycling value. We do not include by-laws that prohibit scavenging as an organized commercial activity, or those that interfere with waste disposal sites.</p>
+
+      <h3 class="subtitle">Resting and Sleeping</h3>
+
+      <p class="par">This category overlaps with both loitering and obstructing by-laws, but these laws are distinct because they specifically target the bodies of homeless people that are resting (sitting, reclining or sleeping) in public spaces. These by-laws can be general anti-sleeping prohibitions in all public spaces or can restrict sitting and sleeping in specific places (on street furniture or grassy areas). Along with loitering and obstruction by-laws, they can work to exclude the very simple presence of homeless people altogether from public spaces.</p>
+
+      <h3 class="subtitle">Sheltering</h3>
+
+      <p class="par">By-laws regulating camping or erecting materials like tents, tarps or other covers in public space are categorized as sheltering by-laws. They emphasize some sort of shelter or place-making. Some of these by-laws allow narrow exceptions for homeless people, but still restrict times and places where people can set up shelters, effectively banning building shelter for more than a very short period of time (usually from sunset to sunrise).</p>
+
+      <p class="par">We do not include by-laws that regulate recreational camping in municipal parks that have organized campgrounds with permitted sites. Nor do we include general prohibitions involving entry into park spaces.</p>
+
+      <h3 class="subtitle" id="sub9">Disorder</h3>
+
+      <p class="par">These by-laws prohibit vaguely-defined behaviours that provide a means to target anyone that a member of the public may find to be undesirable. Often these by-laws characterize certain kinds of conduct as a form of ‘nuisance’, using extremely general language about ‘annoying’, ‘offending’ or ‘being objectionable to’ others. They are so general and vague that they provide a legal means to anyone to complain about street-involved people in public spaces.</p>
+
+      <p class="par">We do not include general anti-nuisance by-laws that specifically prohibit harassment or violent behaviour in public spaces.</p>
+
+      <h3 class="subtitle" id="aboutLaws">About Neo-Vagrancy Laws</h3>
+
+      <p class="par">Vagrancy prohibitions have a 700 year-old history in English criminal law. Vagrancy offences were designed to target anyone whose simple presence was perceived as a threat to the prevailing social and economic order. In particular, people who were visibly poor and could not give a ‘good account’ of themselves were arrested as criminals.</p>
+
+      <p class="par">Vagrancy law has been complicit with some of the most violent expressions of racism. Racial profiling and ‘stop and search’ practices were a central feature of vagrancy law enforcement. Black and Asian Canadians, Indigenous Peoples, queer and trans individuals, and sex workers - all were major targets of vagrancy law before most of the offences were repealed from Canada’s Criminal Code by the early 1970’s.</p>
+
+      <p class="par">In the last 30 years, there has been a revival of vagrancy type laws directed at people who are homeless and street involved. New or revised laws have been enacted across Canada targeting the presence and survival activities of homeless people in public spaces.</p>
+
+      <p class="par italics">We call these laws neo-vagrancy laws because they revive a key purpose of archaic vagrancy law: to punish people who are visibly poor and have no choice but to spend their time in public spaces.</p>
+
+      <p class="par">These laws are profoundly prejudicial given how minority communities (such as Indigenous Peoples) are over-represented in homeless populations.</p>
+
+      <p class="par">We conclude on an important point: neo-vagrancy laws are a specific set of anti-homeless laws that reproduce aspects of repealed vagrancy law. They do not include a wide range of other laws that are often used against people experiencing homelessness such as alcohol or trespass laws. Indeed, as we will explore in upcoming research, they are only one feature of a legal landscape that punishes people who are homeless and attempts to drive them out of public spaces.</p>
+
+      <p class="authors">Joe Hermer and Elliot Fonarev</p>
+      <p class="date">August 25, 2021</p>
+
+      <p class="notes" id="notes1">This work is protected under a Creative Commons license that allows you to share, copy, distribute, and transmit the work for non-commercial purposes, provided you attribute it to the original source.</p>
+
+      <p class="notes" id="notes2">This essay may be cited as:</p>
+	  <p class="notes" id="notes3">Hermer, J., & Fonarev, E. (2020, July 12). Neo-Vagrancy Laws in Canada. Retrieved from: http://covid19-phi.ca/</p>
+
+
+<h3>Bibliography<button class="biblioExpand"><i class="fa fa-caret-square-o-down" aria-hidden="true"></i></button></h3>
+	  <div class="bibliography">
+	  	
+	  	<p>Bellot, C., & Sylvestre, M. (2017). La judiciarisation de l’itinérance à Montréal : les dérives 
+		sécuritaires de la gestion pénale de la pauvreté. <span class="jouTit">Revue générale de droit</span>, 47: 11–44.</p>
+
+		<p>Bellot, C., Raffestin, I., Royer, M., & Noël, V. (2005). Judiciarisation et criminalisation des 
+		populations itinérantes à Montréal. <span class="jouTit">Rapport de recherche préparé pour le Secrétariat
+		National des Sans– abri</span>, octobre 2005, p. 27–28.</p>
+
+		<p>Bernier, D., Bellot, C., Sylvestre, M., & Chesnay, C. (2011). La judiciarisation des personnes en 
+		situation d’itinérance à Québec : point de vue des acteurs socio-judiciaires et analyse du phénomène. <span class="jouTit">Revue générale de droit</span>, 47: 11-44.</p> 
+
+		<p>Blackmon, D. (2009). <span class="jouTit">Slavery by Another Name: The Re-Enslavement of black Americans from 
+		the Civil War to World War II.</span> New York: Anchor Books.</p> 
+
+		<p>Bouclin, S. (2015). Identifying Pathways to and Experiences of Street Involvement through Case 
+		Law. <span class="jouTit">Dalhousie Law Journal</span>, 38(2): 345-383.</p> 
+
+		<p>Boivin, R., & Billette, I. (2012). Police et itinérance à Montréal : analyse des constats 
+		d’infraction aux règlements municipaux, 2005-2009. <span class="jouTit">Crime et jeux de hasard</span>, 45(2): 249-276.</p>
+
+    <p>Canadian Civil Liberties Association, Policing the Pandemic Mapping Project. <span class="jouTit">Stay off the Grass: COVID-19 and Law Enforcement in Canada</span>, June 2020. https://ccla.org/cclanewsite/wp-content/uploads/2020/06/2020-06-24-Stay-Off-the-Grass-COVID19-and-Law-Enforcement-in-Canada1.pdf</p>
+
+		<p>Campbell, M., & Eid, P. (2009). La judiciarisation des personnes itinérantes à Montréal : un 
+		profilage social. <span class="jouTit">Commission des droits de la personne et des droits de la jeunesse</span>, cat. 2.120-8.61.</p>
+
+		<p>Chesnay, C., Bellot, C., & Sylvestre, M. (2013). Taming Disorderly People One Ticket at a 
+		Time: The Penalization of Homelessness in Ontario and British Columbia. <span class="jouTit">Canadian Journal of Criminology and Criminal Justice</span>, 55(22): 161-185.</p>
+
+		<p>Collins, D., & Blomley, N. (2003). Private Needs and Public Space: Politics, Poverty, and Anti-
+		Panhandling By-Laws in Canadian Cities. In Law Commission of Canada, (Eds.), <span class="jouTit">New Perspectives on the Public-Private Divide</span> (pp. 40-67). Vancouver, BC: UBC Press.</p>
+
+		<p>European Federation of National Organisations Working with the Homeless. (2020, Spring). The 
+		Criminalisation of Homelessness. <span class="jouTit">Homeless in Europe</span>. Retrieved from: https://www.feantsa.org/public/user/Resources/magazine/2020/Homeless_in_Europe_Magazine_Spring2020_Criminalisation_of_homelessness.pdf</p>
+
+		<p>Fortin, V. (2018). Le contrôle des espaces publics à Montréal, à l’ère de la justice managériale. 
+		<span class="jouTit">Penal Field</span>, 15: https://doi.org/10.4000/champpenal.10115</p>
+
+		<p>Gaetz, S., O’Grady, B., Buccieri, K., Karabanow, J., & Marsolais, A. (2013). Governing the 
+		Streets: The Legal, Social, and Moral Regulation of Homeless Youth. In Homeless Hub (Eds.), <span class="jouTit">Youth Homelessness in Canada: Implications for Policy and Practice</span>. Toronto, ON: Canadian Homelessness Research Network Press.</p>
+
+		<p>Gaetz, S., O’Grady, B., Buccieri, K., Karabanow, J., & Marsolais, A. (2013). Policing Street 
+		Youth in Toronto. In Homeless Hub (Eds.), <span class="jouTit">Youth Homelessness in Canada: Implications for Policy and Practice</span>. Toronto, ON: Canadian Homelessness Research Network Press.</p>
+
+		<p>Hall, S., Critcher, C., Jefferson, T., Clarke, J., & Roberts, B. (1978). <span class="jouTit">Policing the crisis: 
+		mugging, the state, and law and order</span>. London, England: Macmillan Press.</p>
+
+		<p>Hermer, J. (2019). <span class="jouTit">Policing Compassion: Begging, law and power in public space</span>. Oxford: Hart 
+		Publishing.</p> 
+
+		<p>Hermer, J. (2020, February 2). Thomas Parker and the tragedy of Vagrancy Law. Retrieved 
+		from: https://www.crisis.org.uk/about-us/the-crisis-blog/thomas-parker-and-the-tragedy-of-vagrancy-law/</p>
+
+		<p>Hermer, J., & Mosher, J. (2002). <span class="jouTit">Disorderly People: Law and the politics of exclusion in 
+		Ontario</span>. Halifax: Fernwood Publishing.</p> 
+
+		<p>Johnsen, S., Fitpatrick, S., & Watts, B. (2018). Homelessness and social control: a typology. 
+		<span class="jouTit">Housing Studies</span>, 33(7): 1106-1126.</p> 
+
+    <p>McClelland, A., Luscombe, A. (2020). "Policing the Pandemic: Tracking the Policing of COVID-19 Across Canada", https://doi.org/10.5683/SP2/KNJLWS, <span class="jouTit">Scholars Portal Dataverse</span>.</p>
+
+		<p>Morris, N. (2019). <span class="jouTit">Scrap the Act: The case for repealing the Vagrancy Act (1824)</span>. London: 
+		Crisis.</p>
+
+		<p>O’Grady, B., Gaetz, S., & Buccieri, K. (2011). <span class="jouTit">Can I see your I.D.? The policing of youth 
+		homelessness in Toronto</span>. Retrieved from: https://www.homelesshub.ca/CanISeeYourID</p>
+
+		<p>Ranasinghe, P. (2012). Vagrancy as a penal problem: the logistics of administering punishment 
+		in late-nineteenth-century Canada. <span class="jouTit">Journal of Historical Sociology</span>, 25(4): 531-551.</p>
+
+		<p>Ranasinghe, P. (2015). Refashioning vagrancy: a tale of law’s narrative of its imagination. 
+		<span class="jouTit">International Journal of Law in Context</span>, 2(3): 320-340.</p> 
+
+		<p>Statistics Canada. (2016). <span class="jouTit">Population and dwelling count highlight tables, 2016 census: 
+		population and dwelling counts, for Canada, provinces and territories, and census 
+		subdivisions (municipalities), 2016 and 2011 censuses</span>. Retrieved June 25, 2020 from: https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/hlt-fst/pd-pl/List-prov-terr.cfm?Lang=Eng&T=302&S=86&O=A</p>
+
+		<p>Sylvestre, M., & Bellot, C. (2014). Challenging discriminatory and punitive responses to 
+		homelessness in Canada. <span class="jouTit">Advancing Social Rights in Canada, Irwin Law</span>. Retrieved from: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2484975</p>
+
+		<p>Sylvestre, M., Bellot, C., Ménard, P., & Tremblay, A. (2013). Le droit est aussi une question de 
+		visibilité : 2 occupation des espaces publics et parcours judiciaires des personnes 
+		itinérantes à Montréal et à Ottawa. <span class="jouTit">Cambridge University Press</span>, 26(3): 531-561.</p>
+
+		<p>The National Law Center on Homelessness & Poverty and The National Coalition for the 
+		Homeless. (2009). <span class="jouTit">Homes not handcuffs: The criminalization of homelessness in U.S. cities</span>. Retrieved from: https://nationalhomeless.org/wpcontent/uploads/2013/11/CrimzReport_2009.pdf</p>
+
+		<p>The National Law Center on Homelessness & Poverty and The National Coalition for the 
+		Homeless. (2006). <span class="jouTit">A dream denied: The criminalization of homelessness in U.S. cities</span>. Retrieved from: https://nationalhomeless.org/wp-content/uploads/2014/06/CrimzReport2006.pdf</p>
+
+		<p>Quirouette, M. (2016). Conflict with the Law: Regulation & Homeless Youth Trajectories 
+		toward Stability. <span class="jouTit">Canadian Journal of Law and Society</span>, 31(03): 383-404.</p> 
+
+		<p>Waldron, J. (1991). Homelessness and the Issue of Freedom. <span class="jouTit">UCLA Law Review</span>, 39(1): 295-
+		324.</p> 
+
+	</div>
+
+    </div>
+</div>
+
+<div class="footer">
+		<hr>
+		<div class="Logos">
+			<div class="Logopic">
+				<img src="Styles/Images/UofT.png">
+			</div>
+
+			<div class="Logopic">
+				<img src="Styles/Images/UofO.png">
+			</div>
+
+			<div class="Logopic">
+				<img src="Styles/Images/UofM.jpg">
+			</div>
+
+			<div class="Logopic">
+				<img src="Styles/Images/UofG.png">
+			</div>
+		</div>
+
+		<div class="Liscense">
+			<p>&copy; 2020 Joseph Hermer licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+		</div>
+		<div class="Liscense-Image">
+			<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+				<img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+			</a>
+		</div>
+		
+	</div>
+
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="Scripts/map.js"></script>
+   <script src="Scripts/allPagesScript.js"></script>
+
+
+ 
+
+
+ 
+	<script>
+		mapboxgl.accessToken = 'pk.eyJ1IjoiZG9ueWFhYSIsImEiOiJja254Y21rajIwNmU1MnZvMDN0bW5zMGR1In0.oc9HeYjSLn_wJHd5Vc1hoQ';
+ 
+		var filterGroup = document.getElementById('filter-group');
+		var map = new mapboxgl.Map({
+			container: 'map',
+      		style: 'mapbox://styles/mapbox/light-v10', // replace this with your style URL
+      		center: [-104.750596, 58.585901],
+      		zoom: 2.8
+		});
+
+		map.addControl(new mapboxgl.NavigationControl());
+
+
+    	var colors = ['#6a3d9a', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#ff7f00'];
+ 
+		map.on('load', function() {
+			// Add a GeoJSON source containing place coordinates and information.
+			map.addSource('Laws' ,{
+        		'type': 'geojson',
+        		'data': {
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Langley",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Parks and Public Facilities Regulation By-Law - 3048 (2018)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.661291,
+          49.101447
+        ],
+        "type": "Point"
+      },
+      "id": "00fda967f41e8f9d40f81ee14d6fc8d5"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "New Westminster",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Street and Traffic By-Law - 7664 (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.920238,
+          49.208205
+        ],
+        "type": "Point"
+      },
+      "id": "01458f86d6e041e88ce2a838d9f11a06"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "London",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks and Recreation By-Law - PR2 (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -81.247279,
+          43.01083
+        ],
+        "type": "Point"
+      },
+      "id": "04f792689c9331854af018aaf5dd9f71"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Dieppe",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Peace, order and decorum and the protection of property rights - 78-22 (1980)"
+      },
+      "geometry": {
+        "coordinates": [
+          -64.740005,
+          46.085791
+        ],
+        "type": "Point"
+      },
+      "id": "0581fb226ab52b2d222c1cdb2031f63a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Rossland",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Good Neighbour By-Law - 2631 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -117.803384,
+          49.076955
+        ],
+        "type": "Point"
+      },
+      "id": "05ccf6ef57edcc8062a2f70c6c96e20d"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Hamilton",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Streets By-Law #86-77 (1977) AND amendment to Streets By-Law respecting panhandling #97-162 (1997)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.868761,
+          43.246948
+        ],
+        "type": "Point"
+      },
+      "id": "067acff740576532c27fb91dfbcff748"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brantford",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Garbage Collection Removal - Chapter 440 (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.273751,
+          43.165091
+        ],
+        "type": "Point"
+      },
+      "id": "087769b360ec050af7ed42c9cfead5c5"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Thompson",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Behavioural By-Law - 1736 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -97.848967,
+          55.751911
+        ],
+        "type": "Point"
+      },
+      "id": "088202cb5ac3e692d36b2e307ba69e41"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "North Vancouver",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Street and Traffic By-Law - 7125 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.074228,
+          49.32405
+        ],
+        "type": "Point"
+      },
+      "id": "091b8010abb11633dba201f789155cfa"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brampton",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Park Lands By-Law - 161-83 (1983)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.778801,
+          43.692404
+        ],
+        "type": "Point"
+      },
+      "id": "0a4b55f73847404b11158f3559cc2f77"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Amherst",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Loitering By-Law - C03 (2000)"
+      },
+      "geometry": {
+        "coordinates": [
+          -64.215725,
+          45.843589
+        ],
+        "type": "Point"
+      },
+      "id": "0b11ef4400f26f4e8d0fb7ce7177c6b1"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Montague",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Montague Nuisance and Noise Control By-Law - 2014-02 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -62.648831,
+          46.166968
+        ],
+        "type": "Point"
+      },
+      "id": "0b8994c61afcb27e8430d3dbc14a21e9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Camrose",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "The Camrose Public Property By-Law - 2338 / 02 (2002 / 2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -112.83148,
+          53.008184
+        ],
+        "type": "Point"
+      },
+      "id": "0b8e18f3f1e16476c13760c33679db6c"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Hamilton",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Streets By-Law #86-77 (1977) AND amendment to Streets By-Law respecting panhandling #97-162 (1997)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.868886,
+          43.249807
+        ],
+        "type": "Point"
+      },
+      "id": "0c820aecb84f662e3796a43b20becd39"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "St. Albert",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Transit By-Law - 23 / 2017 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.64349,
+          53.632089
+        ],
+        "type": "Point"
+      },
+      "id": "0cae686f87f8d6cf317e42969d667b69"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Haldimand County",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks and Facilities By-Law - 1534 / 15 (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.868196,
+          42.973755
+        ],
+        "type": "Point"
+      },
+      "id": "0d0a6f8d4f1ce610f190bea704a219d3"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Vancouver",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Street & Traffic By-Law - obstructive soliciting, loitering, and structures on streets - 2849 (1994, a 2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.113387,
+          49.262122
+        ],
+        "type": "Point"
+      },
+      "id": "0d4deb5a8c5e73480cec140b276acf3c"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Windsor",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law - 131-2019 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -82.972702,
+          42.287549
+        ],
+        "type": "Point"
+      },
+      "id": "0d817baa5b4ecf41ab77854dfaa7e322"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Edmonton",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parkland By-Law 2202 (1961, amended) - (1961)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.497722,
+          53.537485
+        ],
+        "type": "Point"
+      },
+      "id": "0e9fccc04dbeb1e8e8df6c68427694c0"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Sidney",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law - 1688, (2001)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.400308,
+          48.650535
+        ],
+        "type": "Point"
+      },
+      "id": "0ec64c8655932ff701f3d3faac5f4be1"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Woodstock",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks - Recreation Chapter 655 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.747131,
+          43.133802
+        ],
+        "type": "Point"
+      },
+      "id": "10bc29b326e959d6e1565f500b5e149e"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville De Saint-Jérôme",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Réglement Concernant la Propreté, La Sécurité, La Paix, L'Ordre et Le Bien-Être - 0217-000 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -74.0039,
+          45.766353
+        ],
+        "type": "Point"
+      },
+      "id": "10c54f3c9400193caf15a7381ca28760"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Dieppe",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Peace, order and decorum and the protection of property rights - 78-22 (1980)"
+      },
+      "geometry": {
+        "coordinates": [
+          -64.732926,
+          46.088022
+        ],
+        "type": "Point"
+      },
+      "id": "10fe846aa28958233aa460ec75ec202c"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Cornwall",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "By-Law regarding solicitation on public property - 2016-092 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -74.779523,
+          45.037249
+        ],
+        "type": "Point"
+      },
+      "id": "128f23d621883bbefdc002802fca1325"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "New Westminster",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Street and Traffic By-Law - 7664 (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.918289,
+          49.211514
+        ],
+        "type": "Point"
+      },
+      "id": "13335fc26170423dc219faab166486cf"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Guelph",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Waste Management By-Law - 2019-20392 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.244296,
+          43.52688
+        ],
+        "type": "Point"
+      },
+      "id": "13953b9dc246f550ec108fc4c78aa2f0"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Trois-Rivières",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Réglement Sur L'Occupation Du Domaine Public - (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -75.58346,
+          46.396106
+        ],
+        "type": "Point"
+      },
+      "id": "1476181e165ddc0f1ab1b43477173087"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Surrey",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Recreation and Cultural Facilities Regulation By-Law - 13480 (1996, a.2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.832996,
+          49.124584
+        ],
+        "type": "Point"
+      },
+      "id": "155dbd86a8a9862087efabc0fa4b5b13"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Mount Pearl",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Parks and Recreation Regulations (1993)"
+      },
+      "geometry": {
+        "coordinates": [
+          -52.811201,
+          47.513927
+        ],
+        "type": "Point"
+      },
+      "id": "162ae919b25e0c8b1db5a258edfd24c4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Peterborough",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Chapter 519 of the Municipal Code (Soliciting - On Highways) (1991)"
+      },
+      "geometry": {
+        "coordinates": [
+          -78.322032,
+          44.3027
+        ],
+        "type": "Point"
+      },
+      "id": "1821384e4e853fe7714f3ddb02913cd9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Barrie",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Parks Use By-Law - 2019-059 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.697535,
+          44.387519
+        ],
+        "type": "Point"
+      },
+      "id": "18549d6ce6cc6da261393695faf72cfe"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Shawinigan",
+        "OffenceType": "Loitering / Flâner ",
+        "LawName": "Titre 4 - Ordre et paix publique"
+      },
+      "geometry": {
+        "coordinates": [
+          -72.749123,
+          46.543516
+        ],
+        "type": "Point"
+      },
+      "id": "190b12f2c09268ccb8b8284780d657b6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Langley",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Parks and Public Facilities Regulation By-Law - 3048 (2018)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.654928,
+          49.105018
+        ],
+        "type": "Point"
+      },
+      "id": "1a107cf563684f8656f78a3ea76fb5a5"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Quinte West",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Public Nuisance By-Law - 07.129 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -77.576976,
+          44.159921
+        ],
+        "type": "Point"
+      },
+      "id": "1b8fde26816694415a1892664e3490a6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kawartha Lakes",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Regulate Public Parks and Facilities By-Law - 2006-147 (2006)"
+      },
+      "geometry": {
+        "coordinates": [
+          -78.786093,
+          44.54045
+        ],
+        "type": "Point"
+      },
+      "id": "1c78d996f3a08d23d9320bf09a95fa06"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brockville",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Solid Waste Management By-Law - 093-2012 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -75.699385,
+          44.598773
+        ],
+        "type": "Point"
+      },
+      "id": "1d0a6aad9078b4ebebd7234c0090445f"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Toronto",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Municipal Code, Chapter 743, Streets and Sidewalks"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.390956,
+          43.655332
+        ],
+        "type": "Point"
+      },
+      "id": "1d91f3ca60c797de269101fc05cbf67c"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Salmon Arm",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Solicitation By-Law - 4273 (2018)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.277372,
+          50.688788
+        ],
+        "type": "Point"
+      },
+      "id": "1dd98ae8ebe2daf16430df7f919bfc59"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Winkler",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Waste Management By-Law - 2227 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -97.936518,
+          49.18383
+        ],
+        "type": "Point"
+      },
+      "id": "1e2e62f31a125b02fdfc4950efb5c60d"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Coquitlam",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Street and Traffic By-Law - 4402 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.87747,
+          49.24436
+        ],
+        "type": "Point"
+      },
+      "id": "1f48ddbc216f4cb901a5bb2155bdd1cc"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Inuvik",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Public Behavior By-Law - 2649 / PS / 20 (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -133.53779,
+          68.319919
+        ],
+        "type": "Point"
+      },
+      "id": "2006b27b91aacfe5456f2721e363b1c8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Fredericton",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "By-Law to Prevent Nuisances - S-9 (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -66.638816,
+          45.943211
+        ],
+        "type": "Point"
+      },
+      "id": "20b9fd4489ef20be5783865a8a0fc47a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Mount Pearl",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Graffiti, Loitering, Public Behavior and Vandalism Regulations (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -52.816428,
+          47.515251
+        ],
+        "type": "Point"
+      },
+      "id": "210d6711a92c2525e593f56fa285ff79"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Réglement Concernant La Paix Et L'Ordre Sur Le Domaine Public (RCA11 22005) - P-1 - (2011)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.638216,
+          45.494185
+        ],
+        "type": "Point"
+      },
+      "id": "21484cd9ad45a131172485526b03b978"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ajax",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Parks By-Law - 24-2016 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.045354,
+          43.897444
+        ],
+        "type": "Point"
+      },
+      "id": "21e0c2b3418242cba6829bee1e0d7b58"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Langley",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Highway and Traffic Regulation By-Law - 2871 (2013)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.664018,
+          49.104869
+        ],
+        "type": "Point"
+      },
+      "id": "2330992f960594688c64363d2eb763e9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "New Glasgow",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Municipal Parks and Public Spaces By-Law - 35 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -62.652718,
+          45.563638
+        ],
+        "type": "Point"
+      },
+      "id": "23a4579a8cd2dd07a80dd7d5bdf8014b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Swift Current",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Traffic By-Law - 3–1996 (1996)"
+      },
+      "geometry": {
+        "coordinates": [
+          -107.80749,
+          50.292285
+        ],
+        "type": "Point"
+      },
+      "id": "23b7334cc7187269e3a2c7a84c24bdbd"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kingston",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks & Rec Facilities By-Law - 2009-76 (2009) as amended by 2020-50 (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -76.487532,
+          44.233251
+        ],
+        "type": "Point"
+      },
+      "id": "247c9d6d15ad35e1ebc8b8ef288a15f9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brantford",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law - 420 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.275497,
+          43.164049
+        ],
+        "type": "Point"
+      },
+      "id": "2537a1198eae4707f5b3f09b03ff6607"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "North Vancouver",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Street and Traffic By-Law - 7125 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.06798,
+          49.320243
+        ],
+        "type": "Point"
+      },
+      "id": "26c0481f8a41ef9b46ac07ae3f2eeefb"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ajax",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law - 24-2016 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.04457,
+          43.898952
+        ],
+        "type": "Point"
+      },
+      "id": "275388beafd4918893983641fa7179e4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Grand Prairie",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Noise, Nuisance, and Public Disturbances By-Law - C-1103A, C-1103B, (2006, 2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -118.826694,
+          55.127398
+        ],
+        "type": "Point"
+      },
+      "id": "28202bb943633b0c23b286fdd57cad33"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Airdrie",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Public Behaviour By-Law - B-09 / 2007 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -114.01118,
+          51.297793
+        ],
+        "type": "Point"
+      },
+      "id": "28a8614f25f5f56b46feb4621626b808"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brandon",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Nuisance By-Law - 5806 / 81 / 90 (1991)"
+      },
+      "geometry": {
+        "coordinates": [
+          -99.935577,
+          49.834969
+        ],
+        "type": "Point"
+      },
+      "id": "29fd2148add04852968830934274c637"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Longueuil",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Règlement numéro 81-1923 Pourvoyant au bon ordre et à la paix dans les parcs et endroits publics de la ville de Longueuil - 1981 (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.503715,
+          45.534082
+        ],
+        "type": "Point"
+      },
+      "id": "2a80afd8284c21a2d356c25cc03c99ed"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Sidney",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Parks By-Law - 1688, 2001 (2001, a. 2018)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.400043,
+          48.651271
+        ],
+        "type": "Point"
+      },
+      "id": "2ad4b16565966ec5df8c0e79115896a2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saguenay",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Codification administrative du réglement VS-R-2007-49 Relatif à la paix et au bon ordre dans la ville de Saguenay - (2007), (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -71.106261,
+          48.40576
+        ],
+        "type": "Point"
+      },
+      "id": "2b0c5e48a17355bb4adbec1e733f555d"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Dauphin",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Curfew and Loitering By-Law - 07 / 2006 (2006)"
+      },
+      "geometry": {
+        "coordinates": [
+          -100.062544,
+          51.102914
+        ],
+        "type": "Point"
+      },
+      "id": "2b3d20593a266cc54619380b2950bb74"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Halton Hills",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Community Standards By-Law - 2008-0138 (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.971371,
+          43.623232
+        ],
+        "type": "Point"
+      },
+      "id": "2c9650030223b63d4ce5c7b4c5e81bf4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "By-Law Concerning the Use and Preservation of Regional Parks of Montreal - (2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.599968,
+          45.486514
+        ],
+        "type": "Point"
+      },
+      "id": "2cc0403b2a6c287ca62471d2f544d171"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Duncan",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Streets and Parking Regulations By-Law - 3101 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.708822,
+          48.778886
+        ],
+        "type": "Point"
+      },
+      "id": "2d83f83571a530e490977a8ff11ca2e9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Réglement Concernant La Paix Et L'Ordre Sur Le Domaine Public (RCA11 22005) - P-1 - (2011)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.592263,
+          45.496297
+        ],
+        "type": "Point"
+      },
+      "id": "2dea05f08c97727e85d2bc891f76cd86"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville De Saint-Jérôme",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Réglement Concernant Les Nuisances - (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -74.009596,
+          45.758903
+        ],
+        "type": "Point"
+      },
+      "id": "2dfa4af8146946be46bc2f83db6cbc3c"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saskatoon",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Traffic By-Law - 7200 (1991)"
+      },
+      "geometry": {
+        "coordinates": [
+          -106.66421,
+          52.130529
+        ],
+        "type": "Point"
+      },
+      "id": "2e14c7833899f910f648884260cb7a03"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Welland",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Public Nuisance By-Law - 2011-129 (2011)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.248336,
+          42.981279
+        ],
+        "type": "Point"
+      },
+      "id": "2f1df07e96620d8dc480f27a48f0d514"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Victoria",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Streets and Traffic By-Law - 09-079 (2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.358822,
+          48.426635
+        ],
+        "type": "Point"
+      },
+      "id": "2fd212bf30c5fd3ed5f558a0068c43fe"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Dauphin",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Curfew and Loitering By-Law - 07 / 2006 (2006)"
+      },
+      "geometry": {
+        "coordinates": [
+          -100.05323,
+          51.143717
+        ],
+        "type": "Point"
+      },
+      "id": "31257ee0ae8d1eb1f7e951898520519e"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Vernon",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Good Neighbour By-Law - 4980 (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.267584,
+          50.263489
+        ],
+        "type": "Point"
+      },
+      "id": "318f9506a3a30eafba1a9875fbe2edfd"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Wetaskiwin",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Community Standards By-Law - 1866-16 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.36639,
+          52.968284
+        ],
+        "type": "Point"
+      },
+      "id": "32229bf67100bf4139d76a98970ece26"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Gatineau",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "By-Law Concerning the Maintenance of Public Peace and Good Order Throughout Gatineau - 42- (2003)"
+      },
+      "geometry": {
+        "coordinates": [
+          -75.701203,
+          45.538021
+        ],
+        "type": "Point"
+      },
+      "id": "32b2bfb0ed723ea88715a568eb3c1fc1"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Cold Lake",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Parks and Public Facilities By-Law - 539-PL-14 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -110.175811,
+          54.463816
+        ],
+        "type": "Point"
+      },
+      "id": "33cc37220fc100de6808d8055f2a024b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Orillia",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks, Recreation, and Culture By-Law - 7.1.1.1 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.430821,
+          44.60135
+        ],
+        "type": "Point"
+      },
+      "id": "33f80c32f8c2df917b741c79fa8d9f00"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "By-Law Concerning Parks Under the Authority of Montréal City Council - 10-020 - (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.610075,
+          45.523699
+        ],
+        "type": "Point"
+      },
+      "id": "34614d82200cb0390a5b3ebd39bbb72f"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Estevan",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks & Open Space By-Law - 2015-1956 (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -102.99066,
+          49.14532
+        ],
+        "type": "Point"
+      },
+      "id": "349f881728b48de78a8127148ee212ed"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "By-Law Concerning the Occupancy of Public Property - 0.01 - (2001)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.601303,
+          45.507384
+        ],
+        "type": "Point"
+      },
+      "id": "34e7f697f0bfbda7ce776ec498e4b036"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "North Bay",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "By-Law to provide for the Protection, Maintenance, Enjoyment, and Control of Parks, Playgrounds, Flowered Areas, and Certain Municipal Buildings - 84-69 (1969)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.452945,
+          46.304823
+        ],
+        "type": "Point"
+      },
+      "id": "37a826c9f81f6e6708e81735418b94e2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Barrie",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Nuisance (Use of Public Property) By-Law - 2004-142 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.694465,
+          44.379566
+        ],
+        "type": "Point"
+      },
+      "id": "390b7dfad5a3b174b5d35aef6394a21a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kitchener",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Chapter 270 of the Municipal Code, Parks (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.463782,
+          43.423622
+        ],
+        "type": "Point"
+      },
+      "id": "3aeba6bfa66e825f546baef55ca17749"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Drummondville",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Title IX: De L'Ordre et De La Paix Publique-Chapitre 2: Troubler La Paix-Section II- Assemblées et Défilés- Sous Section 2: Assemblée ou Défilé dans un Lieu Public - (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -72.548809,
+          45.883067
+        ],
+        "type": "Point"
+      },
+      "id": "3bcd4e23a7c44700ef6c3ab98be72636"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "By-Law on the Standards of Safety and Conduct to be Observed by Persons on the Rolling Stock and Buildings Operated by or For The Societe De Transport De Montreal - (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.60959,
+          45.498936
+        ],
+        "type": "Point"
+      },
+      "id": "3c3939e2d835086002135dcfba1ea87c"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Québec",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Règlement R.V.Q. 1959 - Règlement modifiant le règlement sur la paix et le bon ordre relativement aux manifestation, assemblées, défilés et attroupements - (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -71.362459,
+          46.776726
+        ],
+        "type": "Point"
+      },
+      "id": "3d5dcb5eba4c96a49b588b4c78d1be5c"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "St. Catherines-Niagara",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "By-Law to address Public Nuisance - 2007-295 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.23854,
+          43.180239
+        ],
+        "type": "Point"
+      },
+      "id": "3d70115d0237608454fb79ec0e9f4d5a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Surrey",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Highway, Traffic & Parking Regulations - 13007 (1997)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.822536,
+          49.116466
+        ],
+        "type": "Point"
+      },
+      "id": "3dd28c39e5604a0fccb08752e0562bbe"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Cold Lake",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks and Public Facilities By-Law - 539-PL-14 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -110.177534,
+          54.462638
+        ],
+        "type": "Point"
+      },
+      "id": "3e111479075e2248d63c00542416e774"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Grand Prairie",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Noise, Nuisance, and Public Disturbances By-Law - C-1103A, C-1103B, (2006, 2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -118.83437,
+          55.180025
+        ],
+        "type": "Point"
+      },
+      "id": "3e5971f1069898c49a4be9c083a79e01"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Bellevile",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Parks By-Law 2020-28 (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -77.395982,
+          44.164371
+        ],
+        "type": "Point"
+      },
+      "id": "3e710c95c99ea6a4e5879b30cb8d4913"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saint-Jean-Sur Richelieu",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Réglement Concernant les Nuisances, la Salubrité et la Sécurité et Abrogeant le Réglement No.0693 et ses Amendments - (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.296866,
+          45.309987
+        ],
+        "type": "Point"
+      },
+      "id": "41e4e6654346b16a9ea836fdcdd4408c"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Quesnel",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Nuisance By-Law - 1869 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.47237,
+          52.992148
+        ],
+        "type": "Point"
+      },
+      "id": "43a10cd8d4e166e0919f38e84490d1c3"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Leduc",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Waste By-Law - 800-2012 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.54893,
+          53.261998
+        ],
+        "type": "Point"
+      },
+      "id": "4424b7de08a3d3f9837469444b113486"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brant",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Solid Waste By-Law - 146-17 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.439715,
+          43.097941
+        ],
+        "type": "Point"
+      },
+      "id": "45ef78611d7b80dd973df5c27838708c"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "North Bay",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "By-Law to regulate the Use of Public Parks - 1996-035 (1996)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.432034,
+          46.289591
+        ],
+        "type": "Point"
+      },
+      "id": "4635c53d7454ee2b7d12cfa153ed0850"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Chestermere",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Community Standards By-Law - 004-12 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.835879,
+          51.03588
+        ],
+        "type": "Point"
+      },
+      "id": "466fcb214be553db5d18b778b9234cb6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Reglément Sur Le Civisme, Le Respect et la Propreté - CA-24-085 - (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.627669,
+          45.50052
+        ],
+        "type": "Point"
+      },
+      "id": "46bacee2ad8b6aa87c77aeb650601251"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "North Battleford",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "To Control and Regulate Panhandling and Other Public Behaviours - 2008 (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -108.30056,
+          52.77707
+        ],
+        "type": "Point"
+      },
+      "id": "46f549494ac6f3dbc712ddb4967d4d4f"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Moncton",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Use of Streets - T-410 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -64.802448,
+          46.090309
+        ],
+        "type": "Point"
+      },
+      "id": "4773fd996f3a6aedf423a736d5f06bd9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Gatineau",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "By-Law Concerning Traffic and Parking Within the City of Gatineau - 300 - (2006)"
+      },
+      "geometry": {
+        "coordinates": [
+          -75.701203,
+          45.538021
+        ],
+        "type": "Point"
+      },
+      "id": "4840b546b33cac414deda8ea0bf953a0"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Coquitlam",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Street and Traffic By-Law - 4402 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.87747,
+          49.24436
+        ],
+        "type": "Point"
+      },
+      "id": "4a6fcdca918997e0b6c0f68f60ceabed"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saint-Jean-Sur Richelieu",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Réglement Concernant les Nuisances, la Salubrité et la Sécurité et Abrogeant le Réglement No.0693 et ses Amendments - (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.321317,
+          45.325618
+        ],
+        "type": "Point"
+      },
+      "id": "4af4f1b9e7f8de9db53cc7ee17cfeafb"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "By-Law Concerning Traffic and Public Security and Repealing By-Law Number 177 As Amended - 868 - (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.618918,
+          45.495368
+        ],
+        "type": "Point"
+      },
+      "id": "4b92aa8454e9402bc0bc9dd8da2d2a69"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Corner Brook",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Street By-Law - (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -57.948605,
+          48.931454
+        ],
+        "type": "Point"
+      },
+      "id": "4b995bd845cf7b7e45a2ede8f36c9de7"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Merritt",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Parks Regulation By-Law - 2054 (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -120.812577,
+          50.117055
+        ],
+        "type": "Point"
+      },
+      "id": "4bc733e8b0c742f7c8c00a9f2d713fce"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Vancouver",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Park By-Laws (consolidated) - (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.131356,
+          49.261652
+        ],
+        "type": "Point"
+      },
+      "id": "4bd281db70fc55bfbf2ce8a817acb52b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Airdrie",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Waste Management By-Law - B-07 / 2017 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -114.006271,
+          51.285515
+        ],
+        "type": "Point"
+      },
+      "id": "4e8413a0b7d87a38d6c56c1b628565aa"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Hamilton",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "The Parks By-Law - 01-219 (2001)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.860618,
+          43.245592
+        ],
+        "type": "Point"
+      },
+      "id": "4ed44f1acdb3ad21cb1649da4d6daed8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Miramichi",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Respecting loitering and public nuisance - 68 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -65.508786,
+          47.032636
+        ],
+        "type": "Point"
+      },
+      "id": "5107fd29f966169629cc024b2bce7e7e"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Edmonton",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Waste Services By-Law - 18590 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.524627,
+          53.541323
+        ],
+        "type": "Point"
+      },
+      "id": "51cb47c5f824768c8359fc564a6ab9a3"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Woodstock",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Parks - Recreation Chapter 655 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.746292,
+          43.135946
+        ],
+        "type": "Point"
+      },
+      "id": "5236e6586ee769674e5de86db949dff8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Chilliwack",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Solid Waste Managment By-Law 2019, 4660, (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -121.951145,
+          49.156913
+        ],
+        "type": "Point"
+      },
+      "id": "52818c74838888866d70c5f9502a8e83"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Greater Sudbury",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law - 2013-54 (2013)"
+      },
+      "geometry": {
+        "coordinates": [
+          -81.134503,
+          46.597807
+        ],
+        "type": "Point"
+      },
+      "id": "528c8eca25aa5ac34e70a5e111807a87"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Hamilton",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Streets By-Law #86-77 (1977) AND amendment to Streets By-Law respecting panhandling #97-162 (1997)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.861558,
+          43.251379
+        ],
+        "type": "Point"
+      },
+      "id": "52cbb952cdc50676a070c0c32dda2337"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Chilliwack",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks, Recreation and Culture By-Law - 3290 (2006 a. 2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -121.951145,
+          49.157683
+        ],
+        "type": "Point"
+      },
+      "id": "53036a91bcb0786f7ad5ea626cac8a2a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Bathurst",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Anti-loitering and Begging By-Law - 2005-13 (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -65.628789,
+          47.613125
+        ],
+        "type": "Point"
+      },
+      "id": "534956a528454c50fa0e9fb9ffefd64a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Norfolk County",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Waste Management By-Law - 2013-164 (2013)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.474629,
+          42.775441
+        ],
+        "type": "Point"
+      },
+      "id": "541305b1e89a77d68775723e83e2fcf0"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Swift Current",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Recreational Facilities and Parks By-Law - 19-1997 (1997)"
+      },
+      "geometry": {
+        "coordinates": [
+          -107.80586,
+          50.275627
+        ],
+        "type": "Point"
+      },
+      "id": "5455eefb124d3e601e9d8c2e247b90b4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Grand Prairie",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "The Use of Public Lands By-Law - C-1078 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -118.83437,
+          55.180025
+        ],
+        "type": "Point"
+      },
+      "id": "54625096d72b171a9ffd103418df486b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Truro",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Public Places By-Law - B130-006 (2006)"
+      },
+      "geometry": {
+        "coordinates": [
+          -63.29825,
+          45.359351
+        ],
+        "type": "Point"
+      },
+      "id": "54a667b69695a435cd2d08cb35cadf66"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "New Westminster",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Parks Regulation By-Law No. 3646, 1959 (1959, a. 2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.919653,
+          49.209796
+        ],
+        "type": "Point"
+      },
+      "id": "5589c7e94925de8c33023c3e00b5f781"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Victoria",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Streets and Traffic By-Law - 09-079 (2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.365597,
+          48.430406
+        ],
+        "type": "Point"
+      },
+      "id": "559458988a94634ce2894ad915a82daa"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Québec",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Règlement R.V.Q. 1091 - Règlement sur la paix et le bon ordre - (2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -71.261598,
+          46.860266
+        ],
+        "type": "Point"
+      },
+      "id": "5613a9b22abb7e7030f750a302e1ae10"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "New Glasgow",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Public Places By-Law - 39 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -62.658612,
+          45.595609
+        ],
+        "type": "Point"
+      },
+      "id": "563dc547621726b6163f19032a8bdd77"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Cambridge",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law - 162-10 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.358689,
+          43.427153
+        ],
+        "type": "Point"
+      },
+      "id": "56fee57d7b27c85b80596f976a90d1d2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brant",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Parks Use By-Law - 225-04 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.436474,
+          43.100289
+        ],
+        "type": "Point"
+      },
+      "id": "5720d051e3461eb50ea321f76a79451e"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Calgary",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Public Behaviour By-Law - 54M2006 (2006)"
+      },
+      "geometry": {
+        "coordinates": [
+          -114.080344,
+          51.052812
+        ],
+        "type": "Point"
+      },
+      "id": "5a99ec981cbea237ca4e3567ce3f2d3e"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Longueuil",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Règlement numéro 81-1923 Pourvoyant au bon ordre et à la paix dans les parcs et endroits publics de la ville de Longueuil - 1981 (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.500235,
+          45.535301
+        ],
+        "type": "Point"
+      },
+      "id": "5af7d549020f292927a4a855b417f080"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "North Bay",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "By-Law to regulate the Use of Public Parks - 1996-035 (1996)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.428092,
+          46.308779
+        ],
+        "type": "Point"
+      },
+      "id": "5b08e88246c245ba45c5cacfd0bc49d7"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Miramichi",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Respecting loitering and public nuisance - 68 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -65.511733,
+          47.033497
+        ],
+        "type": "Point"
+      },
+      "id": "5b1b6fd06437c1d3dfadbb23acdf7dbe"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Moncton",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Use of Streets - T-410 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -64.802448,
+          46.095664
+        ],
+        "type": "Point"
+      },
+      "id": "5b93a4ac60169b219510cc3a9e4eb636"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Maple Ridge",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Aggressive Solicitation By-Law, Maple Ridge Safer Streets - 7581-2019 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.522941,
+          49.260202
+        ],
+        "type": "Point"
+      },
+      "id": "5c8b0e60e51fdf337e2b2d1f29da3f86"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Mission",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Street Nuisances; Good Neighbour By-Law - 5524 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.284304,
+          49.158343
+        ],
+        "type": "Point"
+      },
+      "id": "5d360fdd9ecda9920746ae6828f05375"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Dieppe",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Peace, order and decorum and the protection of property rights - 78-22 (1980)"
+      },
+      "geometry": {
+        "coordinates": [
+          -64.725848,
+          46.083113
+        ],
+        "type": "Point"
+      },
+      "id": "5df2b10358b7fc1f8690fa379bb21fa8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "St. John's",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "St. John's Parks By-Law - 1488 (2006)"
+      },
+      "geometry": {
+        "coordinates": [
+          -52.716008,
+          47.554319
+        ],
+        "type": "Point"
+      },
+      "id": "5e7759cbee9011052025aade66cac111"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Longueuil",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Règlement numéro 81-1923 Pourvoyant au bon ordre et à la paix dans les parcs et endroits publics de la ville de Longueuil - 1981 (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.507443,
+          45.536868
+        ],
+        "type": "Point"
+      },
+      "id": "5f7722d572e9e449a806d75c545efc31"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kentville",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Peace and Good Order By-Law - 85 (2011)"
+      },
+      "geometry": {
+        "coordinates": [
+          -64.493718,
+          45.07896
+        ],
+        "type": "Point"
+      },
+      "id": "60d04481361a338a13b33842384777a9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Toronto",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Municipal Code, Chapter 743, Streets and Sidewalks"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.389541,
+          43.645607
+        ],
+        "type": "Point"
+      },
+      "id": "6106a2d223766c547ea56fed3e0e50a5"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Flin Flon",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Public Morality By-Law - 1148 (1948)"
+      },
+      "geometry": {
+        "coordinates": [
+          -101.87653,
+          54.770344
+        ],
+        "type": "Point"
+      },
+      "id": "637d6303e01a68fc7fa053c3079f95b6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Surrey",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Recreation and Cultural Facilities Regulation By-Law - 13480 (1996, a.2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.81869,
+          49.122274
+        ],
+        "type": "Point"
+      },
+      "id": "665b622b136b2ac5757d81bce9f552f4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Shawinigan",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Titre 4 - Ordre et paix publique"
+      },
+      "geometry": {
+        "coordinates": [
+          -72.728457,
+          46.528118
+        ],
+        "type": "Point"
+      },
+      "id": "666839a7c527e906ab6f14d075951cc6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Swift Current",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Panhandling By-Law - 2-2003 (2003)"
+      },
+      "geometry": {
+        "coordinates": [
+          -107.80749,
+          50.292285
+        ],
+        "type": "Point"
+      },
+      "id": "66abafa0acd928c8c7c79b62e7c3efd1"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Salmon Arm",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Solicitation By-Law - 4273 (2018)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.28442,
+          50.691021
+        ],
+        "type": "Point"
+      },
+      "id": "67bbc79ae385f33d2b7d4a09d0e0a03f"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saskatoon",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Facilities and Parks Usage By-Law - 7767 (1998)"
+      },
+      "geometry": {
+        "coordinates": [
+          -106.67514,
+          52.126727
+        ],
+        "type": "Point"
+      },
+      "id": "69e09bc25f27e98824e4bc0a6be4778d"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Delta",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Highways By-Law - 6922 (2011)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.105214,
+          49.078365
+        ],
+        "type": "Point"
+      },
+      "id": "6af50f4327154263638ac81947345641"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Calgary",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Public Behaviour By-Law - 54M2006 (2006)"
+      },
+      "geometry": {
+        "coordinates": [
+          -114.075436,
+          51.020403
+        ],
+        "type": "Point"
+      },
+      "id": "6d416eb45dc9d5002bf9be468045a61d"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brantford",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Public Nuisance By-Law - 556 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.276133,
+          43.165555
+        ],
+        "type": "Point"
+      },
+      "id": "6e0c229719b3e0261fecf6d320429c98"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Warman",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Community Standards By-Law - 2019-09 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -106.57773,
+          52.32535
+        ],
+        "type": "Point"
+      },
+      "id": "6eb28384f1705a9f069c95910ba62dd2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Delta",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law - 7206 (2013)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.10439,
+          49.075761
+        ],
+        "type": "Point"
+      },
+      "id": "6eb560950af0c5087323546a04a914ae"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kelowna",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks and Public Spaces By-Law - 10680 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.49026,
+          49.887265
+        ],
+        "type": "Point"
+      },
+      "id": "6f8ccd877798344b01e1e66d41993810"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "By-Law Concerning Traffic and Public Security and Repealing By-Law Number 177 As Amended - 868 - (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.61637,
+          45.507912
+        ],
+        "type": "Point"
+      },
+      "id": "705ad18c992e06b9d5bb8268df68f297"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Campbellton",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "A By-Law Respecting Public Parks in the city of Campbellton - L-4 (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -66.651448,
+          47.990995
+        ],
+        "type": "Point"
+      },
+      "id": "7073578e4ca90d281f89b39bdb4da61f"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Medicine Hat",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "The Parks and Recreational Areas By-Law - 2527 (1987)"
+      },
+      "geometry": {
+        "coordinates": [
+          -110.70099,
+          50.032121
+        ],
+        "type": "Point"
+      },
+      "id": "71ba6d57f958dffc87bf1a2029a150c2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Surrey",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Recreation and Cultural Facilities Regulation By-Law - 13480 (1996, a.2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.82579,
+          49.124984
+        ],
+        "type": "Point"
+      },
+      "id": "722d8bc10a1b80fc55c3453109310c4a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Lacombe",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Community Standards By-Law - 468 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.748141,
+          52.469441
+        ],
+        "type": "Point"
+      },
+      "id": "735f1527468fa2c5973bedcc3ca9c703"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Duncan",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Panhandling By-law - 2098 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.705076,
+          48.775762
+        ],
+        "type": "Point"
+      },
+      "id": "74534b02afed5c41ed4db6c0f5157270"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Vernon",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Good Neighbour By-Law - 4980 (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.27152,
+          50.263993
+        ],
+        "type": "Point"
+      },
+      "id": "755bb2668ce0992bcaa84ab19964f486"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kitchener",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Chapter 467 of the Municipal Code, Public Nuisance (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.463987,
+          43.425106
+        ],
+        "type": "Point"
+      },
+      "id": "75a6c20cf634af6de01ee8f8715561e4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "By-Law Concerning the Prevention of Breaches of the Peace, Public Order and Safety and the Use of Public Property - P6 - (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.634077,
+          45.482087
+        ],
+        "type": "Point"
+      },
+      "id": "75b628b0521ebf550d9de79217d60bf7"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Duncan",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Panhandling By-Law - 2098 (2010, a. 2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.704082,
+          48.777022
+        ],
+        "type": "Point"
+      },
+      "id": "75c8642ee4dfb73fe2099ff6135b9705"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Peterborough",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Parks and Facilities By-Law - 19-074 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -78.322568,
+          44.305003
+        ],
+        "type": "Point"
+      },
+      "id": "768645896fc2ecdcbd73013738b4aff1"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Summerside",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Nuisance By-Law - CS-6 (2018)"
+      },
+      "geometry": {
+        "coordinates": [
+          -63.792725,
+          46.416764
+        ],
+        "type": "Point"
+      },
+      "id": "772d0fb04bed59c3a2c60b8849e1673d"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Rossland",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Good Neighbour By-Law - 2631 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -117.803672,
+          49.070244
+        ],
+        "type": "Point"
+      },
+      "id": "78d3c665fe93a183094f0c404a9eb856"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Fort Saskatchewan",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Community Standards By-Law - C16-12 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.21745,
+          53.703477
+        ],
+        "type": "Point"
+      },
+      "id": "790ad5f94cb50de4d1b7b5304f5b8842"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "By-Law Concerning Parks - P-3 - (2001)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.605021,
+          45.516618
+        ],
+        "type": "Point"
+      },
+      "id": "796b873db45807a5ab37610f18d084b4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brant",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Parks Use By-Law - 225-04 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.43991,
+          43.1002
+        ],
+        "type": "Point"
+      },
+      "id": "7aec46c24fe7683d9ec91c88417c5f0a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Oshawa",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks and Facilities By-Law - 83-2000 (2000)"
+      },
+      "geometry": {
+        "coordinates": [
+          -78.862594,
+          43.915945
+        ],
+        "type": "Point"
+      },
+      "id": "7b3514fb271020efd40da168ca40464b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Yellowknife",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Public Transit By-Law - 4284 (2003)"
+      },
+      "geometry": {
+        "coordinates": [
+          -114.376582,
+          62.454611
+        ],
+        "type": "Point"
+      },
+      "id": "7b4585d45f5d3d5e0a8ab6582fe1ed18"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kelowna",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Consolidated Traffic By-Law, Pedestrian Regulations- 8120 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.48399,
+          49.888753
+        ],
+        "type": "Point"
+      },
+      "id": "7b9d72230af9dd5afe1f3959a7ce6789"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Milton",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Public Parks By-Law - 072-2006 (2006)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.882744,
+          43.508067
+        ],
+        "type": "Point"
+      },
+      "id": "7bfa715ef8a3c4f082d0f06b2f7005e0"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kelowna",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Nuisance (Panhandling) By-Law - 8214 (1998, a. 2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.48432,
+          49.893005
+        ],
+        "type": "Point"
+      },
+      "id": "7c1f0004017cd8a5bb45e99f29f54b8a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kitchener",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Chapter 467 of the Municipal Code, Public Nuisance (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.465621,
+          43.424215
+        ],
+        "type": "Point"
+      },
+      "id": "7c576ab90221e8064bb16124fd46eb43"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Waterloo",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Code of Use By-Law - 13-050 (2013)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.56458,
+          43.466686
+        ],
+        "type": "Point"
+      },
+      "id": "7e99adb3b13a8e30e4f8985feb8327a3"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kelowna",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Nuisance (Panhandling) By-Law - 8214 (1998, a. 2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.4797,
+          49.890241
+        ],
+        "type": "Point"
+      },
+      "id": "7ee4da35d9a153d001dd8030875e59e5"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Spruce Grove",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Open Space By-Law - C-910-15 (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.91206,
+          53.537335
+        ],
+        "type": "Point"
+      },
+      "id": "808faad466cff919f66d07a9c9eae331"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Lacombe",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Community Standards By-Law - 468 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.7497,
+          52.470391
+        ],
+        "type": "Point"
+      },
+      "id": "81ae88c1dbad8e859b00d486b650171d"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville De Saint-Jérôme",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Réglement Concernant la Propreté, La Sécurité, La Paix, L'Ordre et Le Bien-Être - 0217-000 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -74.022411,
+          45.769333
+        ],
+        "type": "Point"
+      },
+      "id": "81e4c85b29f0f8d16a580b9688033017"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Quesnel",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Nuisance By-Law - 1869 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.475388,
+          52.939427
+        ],
+        "type": "Point"
+      },
+      "id": "820930621d5f860c8b5d45e01f829e5e"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Haldimand County",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Parks and Facilities By-Law - 1534 / 15 (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.867614,
+          42.975888
+        ],
+        "type": "Point"
+      },
+      "id": "8275c20f5870b1e4e9e16d642d771f26"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Chestermere",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "The Chestermere Traffic Control By-Law - 011-13 (2013)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.836208,
+          51.033734
+        ],
+        "type": "Point"
+      },
+      "id": "8343d5707f724ad03ff6526aa6ba0173"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Red Deer",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Community Standards By-Law - 3383 / 2007 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.815364,
+          52.267764
+        ],
+        "type": "Point"
+      },
+      "id": "8355c3f279f7f61eb413a5fd81b94133"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Winnipeg",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law - 85 (2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -97.161162,
+          49.891008
+        ],
+        "type": "Point"
+      },
+      "id": "84576fbdce1e4db5f31de7216540924d"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Québec",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Règlement R.C.A.2V.Q. 16 - Règlement sur les règles à suivre dans les parcs de l'arrondissement - (2011)"
+      },
+      "geometry": {
+        "coordinates": [
+          -71.28515,
+          46.787543
+        ],
+        "type": "Point"
+      },
+      "id": "85219f7bf7b46f1acfbce3ce2dbd311e"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Sidney",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Streets and Traffic Regulation By-Law - 1966, (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.399064,
+          48.650655
+        ],
+        "type": "Point"
+      },
+      "id": "8585645cbf50113cadc4b7fe482b7c87"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Enderby",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Good Neighbourhood By-Law - 1517 ( 2013)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.143102,
+          50.548678
+        ],
+        "type": "Point"
+      },
+      "id": "85f6e9ed5bcab64158e1cf0bdc3b2d7e"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Mount Pearl",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Parks and Recreation Regulations (1993)"
+      },
+      "geometry": {
+        "coordinates": [
+          -52.813487,
+          47.51856
+        ],
+        "type": "Point"
+      },
+      "id": "88a5623a8abcd681a622b6537570c1c6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "St. Thomas",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Waste Managment 94-2010 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -81.192712,
+          42.775366
+        ],
+        "type": "Point"
+      },
+      "id": "88c5b75480ebee2c6cb42b7304b4fdfd"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Sarnia",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "By-Law Respecting Public Parks - 206 of 1999 (1999)"
+      },
+      "geometry": {
+        "coordinates": [
+          -82.380527,
+          42.989953
+        ],
+        "type": "Point"
+      },
+      "id": "8911e1994a7458ca3b4ab5832840619b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Hamilton",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "The Parks By-Law - 01-219 (2001)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.852351,
+          43.248603
+        ],
+        "type": "Point"
+      },
+      "id": "8974cad78218c100a1eb3adc18c18cbb"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Halifax",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Nuisance and Smoking By-Law - N-300 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -63.597107,
+          44.651103
+        ],
+        "type": "Point"
+      },
+      "id": "89c811c83c0ac8608fc4286604c3f0fc"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Taber",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Community Standards By-Law - 4-2015 (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -112.15014,
+          49.78421
+        ],
+        "type": "Point"
+      },
+      "id": "8b560ba0828a8c972172b59eb8a98ec4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saguenay",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Codification administrative du réglement VS-R-2007-49 Relatif à la paix et au bon ordre dans la ville de Saguenay - (2007), (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -71.109947,
+          48.375163
+        ],
+        "type": "Point"
+      },
+      "id": "8d6a507adf4502a03b79e31e75245a6c"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Vancouver",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Park By-Laws (consolidated) - (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.116981,
+          49.245232
+        ],
+        "type": "Point"
+      },
+      "id": "8da7b7cc7653555f727338ed4b36560b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Langley",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Highway and Traffic Regulation By-Law - 2871 (2013)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.659473,
+          49.104572
+        ],
+        "type": "Point"
+      },
+      "id": "8e05717afbf546dd071ca391086be867"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "New Westminster",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Panhandling By-Law - 6460 (1998)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.917022,
+          49.205849
+        ],
+        "type": "Point"
+      },
+      "id": "8f23bcc520fe31524eb4cf33727e0468"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Mount Pearl",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Graffiti, Loitering, Public Behavior and Vandalism Regulations (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -52.809894,
+          47.516574
+        ],
+        "type": "Point"
+      },
+      "id": "8f70cbf78c5f74fee2937b2e980b62b0"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brockville",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Traffic By-Law - 021-1993 (1993)"
+      },
+      "geometry": {
+        "coordinates": [
+          -75.682616,
+          44.603548
+        ],
+        "type": "Point"
+      },
+      "id": "90324f33dce6d7ded9469a29f2c3a198"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "North Bay",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "By-Law to provide for the Protection, Maintenance, Enjoyment, and Control of Parks, Playgrounds, Flowered Areas, and Certain Municipal Buildings - 84-69 (1969)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.403238,
+          46.287649
+        ],
+        "type": "Point"
+      },
+      "id": "905b0c919805054dccc1adf9fbc6f8b4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brandon",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Nuisance By-Law - 5806 / 81 / 90 (1991)"
+      },
+      "geometry": {
+        "coordinates": [
+          -99.94842,
+          49.797668
+        ],
+        "type": "Point"
+      },
+      "id": "909d934c092d04d5024cce26aa75c441"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Clarence-Rockland",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law - 2010-36 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -75.280999,
+          45.526457
+        ],
+        "type": "Point"
+      },
+      "id": "918b2f16c791f1f219719d2f1cc94de8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saskatoon",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Panhandling By-Law - 7850 (1999)"
+      },
+      "geometry": {
+        "coordinates": [
+          -106.675504,
+          52.1312
+        ],
+        "type": "Point"
+      },
+      "id": "91e1eb6a1eadffad6cfc2ff153bc8510"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Vancouver",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Park By-Laws (consolidated) - (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.111949,
+          49.254146
+        ],
+        "type": "Point"
+      },
+      "id": "92fd0eec816295cbef64af6e97c46d1a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Surrey",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Highway, Traffic & Parking Regulations - 13007 (1997)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.832593,
+          49.11879
+        ],
+        "type": "Point"
+      },
+      "id": "9490de790bacfb82f50fe2cbce1c12ca"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Mission",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Street Nuisances; Good Neighbour By-Law - 5524 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.281384,
+          49.156588
+        ],
+        "type": "Point"
+      },
+      "id": "957c6002929d307252dd885462a956ab"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "By-Law Concerning Traffic and Public Security and Repealing By-Law Number 177 As Amended - 868 - (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.620181,
+          45.485628
+        ],
+        "type": "Point"
+      },
+      "id": "966cce424ef3290fd81eb36d29aceb19"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Hope",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Good Neighbour By-Law - 1240 (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -121.441716,
+          49.379396
+        ],
+        "type": "Point"
+      },
+      "id": "973e1a6d2a19b66c398484f313f3b723"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saint-Jean-Sur Richelieu",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Réglement sur L'Occupation Du Domaine Public et Abrogeant Reglement No. 1482 - (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.241296,
+          45.28497
+        ],
+        "type": "Point"
+      },
+      "id": "9743f0220872a915d187c3da2b6e44d3"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville De Saint-Jérôme",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Réglement Concernant la Propreté, La Sécurité, La Paix, L'Ordre et Le Bien-Être - 0217-000 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -74.013155,
+          45.767347
+        ],
+        "type": "Point"
+      },
+      "id": "97ec1718bb3e4ba4d35749064f7206e2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Amherst",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Loitering By-Law - C03 (2000)"
+      },
+      "geometry": {
+        "coordinates": [
+          -64.216498,
+          45.81896
+        ],
+        "type": "Point"
+      },
+      "id": "9896dbbb2b317551bec9b93c2133b71d"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Morden",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "City of Morden Park Use By-Law - 12-2017 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -98.095867,
+          49.196867
+        ],
+        "type": "Point"
+      },
+      "id": "98ce2243a6d3c2ef86b1647916e0e036"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Toronto",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Municipal Code, Chapter 608, Parks - (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.395201,
+          43.650725
+        ],
+        "type": "Point"
+      },
+      "id": "998c03415d4eeaded5bce8ab7d88be56"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Thompson",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Behavioural By-Law - 1736 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -97.848967,
+          55.723148
+        ],
+        "type": "Point"
+      },
+      "id": "9a84ca1b63e5c87b8350a24bea07ea68"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Merritt",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks Regulation By-Law - 2054 (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -120.82124,
+          50.124693
+        ],
+        "type": "Point"
+      },
+      "id": "9b631b786fc0ac2034879e4dcd08413a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "New Glasgow",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Public Places By-Law - 39 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -62.665979,
+          45.57911
+        ],
+        "type": "Point"
+      },
+      "id": "9bff64d1ebf3521967cf3145aa4be368"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Vancouver",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Street & Traffic By-Law - obstructive soliciting, loitering, and structures on streets - 2849 (1994, a 2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.101168,
+          49.243824
+        ],
+        "type": "Point"
+      },
+      "id": "9d8f820ac7bc3205fa2c84c7276f471c"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Oliver",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Good Neighbour By-Law - 1357 (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.55179,
+          49.16179
+        ],
+        "type": "Point"
+      },
+      "id": "9e02c073df01d342387a5c6ad5df1a03"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Duncan",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Panhandling By-Law - 2098 (2010, a. 2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.710198,
+          48.777475
+        ],
+        "type": "Point"
+      },
+      "id": "9e74c1c4b55107b07b0936a54d6adbea"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Lloydminster",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Community Standards By-Law - 10-2018 (2018)"
+      },
+      "geometry": {
+        "coordinates": [
+          -110.00799,
+          53.281378
+        ],
+        "type": "Point"
+      },
+      "id": "9fc464f914a8d10182b4a9ff2a29b296"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "New Westminister",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Panhandling By-Law - 6460 (1998)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.918484,
+          49.207186
+        ],
+        "type": "Point"
+      },
+      "id": "a02bf17cc9e3cf41091a7612a74c6d25"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Sidney",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Streets and Traffic Regulation By-Law - 1966, (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.399429,
+          48.65186
+        ],
+        "type": "Point"
+      },
+      "id": "a0bf359235a3309ed499017cfd8ca296"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Delta",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law - 7206 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.10439,
+          49.075761
+        ],
+        "type": "Point"
+      },
+      "id": "a18cfe152adda1e4b1ea25a57d8bb10b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Québec",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Règlement R.V.Q. 1959 - Règlement modifiant le règlement sur la paix et le bon ordre relativement aux manifestation, assemblées, défilés et attroupements - (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -71.248747,
+          46.832127
+        ],
+        "type": "Point"
+      },
+      "id": "a1f8a83ecc851724c4352af9f690affa"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Victoria",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks Regulation By-Law - 07-059 (2007, a. 2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.360303,
+          48.421189
+        ],
+        "type": "Point"
+      },
+      "id": "a34331b78501add89efdf959a58d0ddd"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "By-Law on the Standards of Safety and Conduct to be Observed by Persons on the Rolling Stock and Buildings Operated by or For The Societe De Transport De Montreal - (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.608811,
+          45.481198
+        ],
+        "type": "Point"
+      },
+      "id": "a346c742922d2515d7605e380051d408"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Corner Brook",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Street By-Law - (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -57.953351,
+          48.951715
+        ],
+        "type": "Point"
+      },
+      "id": "a3a24f9b37738ab4680657addd0a3d98"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Victoria",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Streets and Traffic By-Law - 09-079 (2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.364169,
+          48.418925
+        ],
+        "type": "Point"
+      },
+      "id": "a3d7aa4f4c345eb7c4ae5761d036a6eb"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Thompson",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Behavioural By-Law - 1736 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -97.900052,
+          55.733426
+        ],
+        "type": "Point"
+      },
+      "id": "a3e16991276e01a3c85cdac31beee8e2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Georgetown",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Georgetown Nuisance and Noise Control By-Law - 2004-03 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -62.533448,
+          46.187682
+        ],
+        "type": "Point"
+      },
+      "id": "a47a090173512cad9ab90572a9837593"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Winnipeg",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Obstructive Solicitation By-Law - 7700 (2000)"
+      },
+      "geometry": {
+        "coordinates": [
+          -97.159001,
+          49.875224
+        ],
+        "type": "Point"
+      },
+      "id": "a481b051df7ff0fff3468e4a6b26fbef"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville De Saint-Jérôme",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Réglement Concernant Les Nuisances - (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -74.013155,
+          45.772809
+        ],
+        "type": "Point"
+      },
+      "id": "a515b7db2135415b27a6551b4aedd890"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Barrie",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks Use By-Law - 2019-059 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.692547,
+          44.38505
+        ],
+        "type": "Point"
+      },
+      "id": "a52d0e733eacddcf43c5cac3ad3f2f44"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Toronto",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Municipal Code, Chapter 608, Parks - (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.40086,
+          43.64663
+        ],
+        "type": "Point"
+      },
+      "id": "a6e312a206c7e1e0a2894c15ef9ceead"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Vancouver",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Street & Traffic By-Law - obstructive soliciting, loitering, and structures on streets - 2849 (1994, a 2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.140701,
+          49.249924
+        ],
+        "type": "Point"
+      },
+      "id": "a6f4e400d7814dc02936f18992b16e8d"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Sault Ste. Marie",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Transit Services By-Law - 2010-79 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -84.393708,
+          46.577591
+        ],
+        "type": "Point"
+      },
+      "id": "a73791ee37eee8d783118c4e607ae1db"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Sarnia",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "By-Law to Regulate the Handling and Collectino of Garbage, Lawn and Garden Waste and other Waste Material in the City of Sarnia - 62 OF 2006 (2006)"
+      },
+      "geometry": {
+        "coordinates": [
+          -82.382014,
+          42.994015
+        ],
+        "type": "Point"
+      },
+      "id": "a74b4c0b8ab9660ce032564df5068256"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Regina",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "The Parks and Open Space By-Law - 2004-27 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -104.6189,
+          50.44521
+        ],
+        "type": "Point"
+      },
+      "id": "a85c593f104507ab3151a71ef334f1c6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Barrie",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Nuisance (Use of Public Property) By-Law - 2004-142 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.698302,
+          44.382583
+        ],
+        "type": "Point"
+      },
+      "id": "a88d16602c0b8da14ec3b87187de22be"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Halifax",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Municipal Parks - P-600 (1999)"
+      },
+      "geometry": {
+        "coordinates": [
+          -63.621647,
+          44.648609
+        ],
+        "type": "Point"
+      },
+      "id": "a93e1f47a750675a06d81338287291e9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Longueuil",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Règlement numéro 81-1923 Pourvoyant au bon ordre et à la paix dans les parcs et endroits publics de la ville de Longueuil - 1981 (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.510467,
+          45.534811
+        ],
+        "type": "Point"
+      },
+      "id": "aaee5ff7d465fbaad96deb979983e883"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Waterloo",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Traffic and Parking By-Law - 16-023 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.564085,
+          43.465878
+        ],
+        "type": "Point"
+      },
+      "id": "abadbdac380013943b6cc24b27c5b123"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brooks",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Community Standards By-Law - 14 / 02 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -111.9026,
+          50.56798
+        ],
+        "type": "Point"
+      },
+      "id": "ae60380b8241ddb5199700bf4e0f95c9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Lethbridge",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law - 5651 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -112.851827,
+          49.692776
+        ],
+        "type": "Point"
+      },
+      "id": "ae8cebcb9c786818281f8d916f75d40b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kamloops",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Panhandling By-Law - 24-38 (2003)"
+      },
+      "geometry": {
+        "coordinates": [
+          -120.38673,
+          50.6482
+        ],
+        "type": "Point"
+      },
+      "id": "af385c49d4e5a0afabc3bac8d996900e"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Enderby",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Good Neighbourhood By-Law - 1517 ( 2013)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.136783,
+          50.54841
+        ],
+        "type": "Point"
+      },
+      "id": "aff88cb77d13eb842651ee06b5c4b45c"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Toronto",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Municipal Code, Chapter 608, Parks - (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.402983,
+          43.653796
+        ],
+        "type": "Point"
+      },
+      "id": "b01f11d6fa649ba4866f730f1338a428"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saguenay",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Codification administrative du réglement VS-R-2007-49 Relatif à la paix et au bon ordre dans la ville de Saguenay - (2007), (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -71.139436,
+          48.391076
+        ],
+        "type": "Point"
+      },
+      "id": "b0290e216f0782b918fb84f0fddfbc82"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Campbellton",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "A By-Law to Prevent Noise and Nuisance in the city of Campbellton - S-1 (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -66.651448,
+          47.990995
+        ],
+        "type": "Point"
+      },
+      "id": "b06ee3bd0812f3c1b1532c81165c4037"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Victoria",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Streets and Traffic By-Law - 09-079 (2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.368929,
+          48.421027
+        ],
+        "type": "Point"
+      },
+      "id": "b1b622ba02e1ba1da1ac7e1819df0bc0"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Shawinigan",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Titre 4 - Ordre et paix publique"
+      },
+      "geometry": {
+        "coordinates": [
+          -72.750846,
+          46.5139
+        ],
+        "type": "Point"
+      },
+      "id": "b23eef1b430c696681bab1bde4e55ae8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brampton",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Public Nuisance By-Law - 136-2018 (2018)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.776996,
+          43.693056
+        ],
+        "type": "Point"
+      },
+      "id": "b242dd0971dd09a6e2f43758d11e1eca"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "North Battleford",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "To Control and Regulate Panhandling and Other Public Behaviours - 2008 (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -108.299168,
+          52.76949
+        ],
+        "type": "Point"
+      },
+      "id": "b4b4d55fc7a4fa3c7ec0c29b9a0037ec"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Maple Ridge",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Aggressive Solicitation By-Law, Maple Ridge Safer Streets - 7581-2019 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.52082,
+          49.259649
+        ],
+        "type": "Point"
+      },
+      "id": "b5917c6f61d51e8fe1110461a9123775"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Georgetown",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Georgetown Nuisance and Noise Control By-Law - 2004-03 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -62.533448,
+          46.187682
+        ],
+        "type": "Point"
+      },
+      "id": "b595f37190dc3d303fef0ab81212d429"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Cambridge",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Public Nuisance By-Law - 165-08 (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.359455,
+          43.42544
+        ],
+        "type": "Point"
+      },
+      "id": "b654bc791e0d037ab4a6f4bf581800bd"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Wetaskiwin",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Community Standards By-Law - 1866-16 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.36639,
+          52.975213
+        ],
+        "type": "Point"
+      },
+      "id": "b788ac9700ba9bc0a712eb08a4d8c525"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Fredericton",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "By-Law to Prevent Nuisances - S-9 (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -66.639635,
+          45.957524
+        ],
+        "type": "Point"
+      },
+      "id": "b79f9381002f1a28a36e99ab97a78c45"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brantford",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Parks By-Law - 420 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.276133,
+          43.165555
+        ],
+        "type": "Point"
+      },
+      "id": "b89d48360baf91593ec93a00366726c3"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saskatoon",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Facilities and Parks Usage By-Law - 7767 (1998)"
+      },
+      "geometry": {
+        "coordinates": [
+          -106.67004,
+          52.133213
+        ],
+        "type": "Point"
+      },
+      "id": "b92c9093f454bfa6b7a1ecb85af8aa00"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Red Deer",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Community Standards By-Law - 3383 / 2007 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.817604,
+          52.267947
+        ],
+        "type": "Point"
+      },
+      "id": "bab0482bba1584d0e12a698efe2d5b98"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Sault Ste. Marie",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law - 80-128 (1980, a-2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -84.393708,
+          46.577591
+        ],
+        "type": "Point"
+      },
+      "id": "bb433f6c2120334b61cae958470dbb1b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Peterborough",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks and Facilities By-Law - 19-074 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -78.324786,
+          44.302057
+        ],
+        "type": "Point"
+      },
+      "id": "bb6d8b4d78ec7a66f63dd116e0774467"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saguenay",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Codification administrative du réglement VS-R-2007-49 Relatif à la paix et au bon ordre dans la ville de Saguenay - (2007), (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -71.076771,
+          48.378836
+        ],
+        "type": "Point"
+      },
+      "id": "bb9b131a89e47cd01728896596731262"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "By-Law Prohibiting Camping in Certain Parks, and Repealing By-Law Provision - (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.578492,
+          45.486515
+        ],
+        "type": "Point"
+      },
+      "id": "bbab9caff8516d519d5326c5b33257e7"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Hamilton",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Solid Waste Management By-Law - 09-067 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.84987,
+          43.240773
+        ],
+        "type": "Point"
+      },
+      "id": "bda565ecdc899c1234a702111df2ea19"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saskatoon",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Tag Days By-Law - 5734 (1977)"
+      },
+      "geometry": {
+        "coordinates": [
+          -106.666396,
+          52.126279
+        ],
+        "type": "Point"
+      },
+      "id": "be28b0f91f49e84c0aad71cdc7c47375"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Whitehorse",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Parks and Public Open Space By-Law - 2015-20 (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -135.05684,
+          60.721188
+        ],
+        "type": "Point"
+      },
+      "id": "be641cdcd097753ec158c23f6abfc0a8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Milton",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Public Parks By-Law - 072-2006 (2006)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.883409,
+          43.512895
+        ],
+        "type": "Point"
+      },
+      "id": "befb82e3c11f7fc111df8740eac88900"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Bellevile",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law 2020-28 (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -77.388833,
+          44.162872
+        ],
+        "type": "Point"
+      },
+      "id": "beff88a56b33224d2469fcc473e1a5de"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Clarence-Rockland",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Loitering By-Law - 2007-06 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -75.259654,
+          45.533933
+        ],
+        "type": "Point"
+      },
+      "id": "bf54e45fc1e690784f0428576d607183"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Québec",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Règlement R.V.Q. 1091 - Règlement sur la paix et le bon ordre - (2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -71.298757,
+          46.816695
+        ],
+        "type": "Point"
+      },
+      "id": "bf9d16b0c2c177efdbbea7c833f220b2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Cold Lake",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Noise and Public Nuisance By-Law - 534-PL-14 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -110.179148,
+          54.463423
+        ],
+        "type": "Point"
+      },
+      "id": "bfbeb6fc13dd463ba82ff20cc57f9b96"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kelowna",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Good Neighbour - 11500 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.48762,
+          49.890878
+        ],
+        "type": "Point"
+      },
+      "id": "c0b65b4510574004ed76469f9eae02e1"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Chestermere",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Community Standards By-Law - 004-12 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.835029,
+          51.035173
+        ],
+        "type": "Point"
+      },
+      "id": "c116c2638dba3f043d00f7a2b5b22ceb"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Stratford",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Noise and Nuisance By-Law - 30 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -63.091319,
+          46.225219
+        ],
+        "type": "Point"
+      },
+      "id": "c1a5fea36c84151973fc79a9fc4e8901"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "New Glasgow",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Public Places By-Law - 39 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -62.643877,
+          45.582204
+        ],
+        "type": "Point"
+      },
+      "id": "c25d4be0603a316ab7942e26f73debf7"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Edmundston",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Prohibition of Loitering and Begging within Edmunston Limits - 16R (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -68.32633,
+          47.367699
+        ],
+        "type": "Point"
+      },
+      "id": "c2a3147e3fc368f438bd1e697e5459bd"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Lloydminster",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Community Standards By-Law - 10-2018 (2018)"
+      },
+      "geometry": {
+        "coordinates": [
+          -110.00799,
+          53.276998
+        ],
+        "type": "Point"
+      },
+      "id": "c2fda7477da0408384ab1a0603e1c397"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ontario",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Safe Streets Act, 1999, S.O. 1999, c. 8 (1999)"
+      },
+      "geometry": {
+        "coordinates": [
+          -76.08087,
+          45.298794
+        ],
+        "type": "Point"
+      },
+      "id": "c30700f0b250082a6f33a07e194f0084"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Vancouver",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Street & Traffic By-Law - obstructive soliciting, loitering, and structures on streets - 2849 (1994, a 2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.127763,
+          49.25227
+        ],
+        "type": "Point"
+      },
+      "id": "c3f641c575a97ce0ad6c635374f76844"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Oshawa",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Nuisance By-Law - 65-2009 (2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -78.863189,
+          43.914232
+        ],
+        "type": "Point"
+      },
+      "id": "c5b22e0df82353bb5caf29fb22921f02"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Cape Breton Regional Municipality (Sydney, Glace Bay, New Waterford, Sydney Mines, North Sydney, Louisbourg, Former County of Cape Breton)",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Orderly Conduct By-Law - S5 (1995)"
+      },
+      "geometry": {
+        "coordinates": [
+          -60.312445,
+          45.937878
+        ],
+        "type": "Point"
+      },
+      "id": "c5f1f673d7125e576aef0f935158ae5a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kawartha Lakes",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Collection, Removal, Disposal of Solid Waste - 2016-144 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -78.789139,
+          44.541053
+        ],
+        "type": "Point"
+      },
+      "id": "c6d3686d0d2ad0594034dca04d4f5185"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "St. John's",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "St. John's Parks By-Law - 1488 (2006)"
+      },
+      "geometry": {
+        "coordinates": [
+          -52.714376,
+          47.558393
+        ],
+        "type": "Point"
+      },
+      "id": "c8a58469975b10dc754262e5ca71e876"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Miramichi",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Respecting loitering and public nuisance - 68 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -65.511733,
+          47.031488
+        ],
+        "type": "Point"
+      },
+      "id": "ca12a0f032d3e0348a47dddf1c717eec"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Oakville",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "By-Law to prohibit loitering and nuisances on public highways - 1970-098 (1970)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.715143,
+          43.48246
+        ],
+        "type": "Point"
+      },
+      "id": "cb126d819ba8e78fefe6c0de807fe9ef"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Regina",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Waste Management By-Law - 63 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -104.6189,
+          50.452031
+        ],
+        "type": "Point"
+      },
+      "id": "cbb6a65cb7719fbaa7ecfe5f72f79e06"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Dieppe",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Peace, order and decorum and the protection of property rights - 78-22 (1980)"
+      },
+      "geometry": {
+        "coordinates": [
+          -64.734213,
+          46.082666
+        ],
+        "type": "Point"
+      },
+      "id": "cbc48edbcfa378d6c5f0346a81dba1f5"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Niagara Falls",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Public Nuisance By-Law - 2009-73 (2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.119628,
+          43.052843
+        ],
+        "type": "Point"
+      },
+      "id": "cbce976041c74075ffa40464f009e6a2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Vancouver",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Street & Traffic By-Law - obstructive soliciting, loitering, and structures on streets - 2849 (1994, a 2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.09398,
+          49.253208
+        ],
+        "type": "Point"
+      },
+      "id": "cc385945eecc19646daf2e5b732e7f59"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Corner Brook",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks Regulations - (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -57.979451,
+          48.929896
+        ],
+        "type": "Point"
+      },
+      "id": "cc510a772aea30c35c235982c00f8dea"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Toronto",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Municipal Code, Chapter 636, Public Square (amendment: 2005-07-21 by By-Law 655-2005) - (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.395908,
+          43.657891
+        ],
+        "type": "Point"
+      },
+      "id": "cc8801a6017d0c39d4954817d6f89791"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Lethbridge",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Streets By-Law - 3446 (1997)"
+      },
+      "geometry": {
+        "coordinates": [
+          -112.851428,
+          49.689937
+        ],
+        "type": "Point"
+      },
+      "id": "cc934749e73e132d4efefe3f720a8da7"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Winnipeg",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Neighbourhood Liveability By-Law - 1 (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -97.179942,
+          49.882107
+        ],
+        "type": "Point"
+      },
+      "id": "ccd7c669dfe81c735486432a5fec379d"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville De Saint-Jérôme",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Réglement Concernant la Propreté, La Sécurité, La Paix, L'Ordre et Le Bien-Être - 0217-000 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -74.020275,
+          45.761386
+        ],
+        "type": "Point"
+      },
+      "id": "cce9cd0ece5f6931d07ae4239266225e"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saint-Jean-Sur Richelieu",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Réglement Concernant les Nuisances, la Salubrité et la Sécurité et Abrogeant le Réglement No.0693 et ses Amendments - (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.279083,
+          45.283411
+        ],
+        "type": "Point"
+      },
+      "id": "cea9bccdf75665fd016db06d917458a3"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Chestermere",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Community Standards By-Law - 004-12 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.835029,
+          51.034083
+        ],
+        "type": "Point"
+      },
+      "id": "cef64132e8f183558b613747fa1f13db"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Abbotsford",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Street Nuisances; Good Neighbour By-Law - 1256 (2003)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.330754,
+          49.050857
+        ],
+        "type": "Point"
+      },
+      "id": "cef81c648b194f2aa4772eccfd1beb8b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Red Deer",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks and Public Facilities By-Law - 3255 / 2000 (2000)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.81907,
+          52.290066
+        ],
+        "type": "Point"
+      },
+      "id": "cf5a16e41429d88b410b5c9468f8a42a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Prince Albert",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "A By-Law of the City of Prince Albert to control obstructive solicitation for donations - 08-2007 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -105.75308,
+          53.20335
+        ],
+        "type": "Point"
+      },
+      "id": "d103f69309842c604565c300f6db9250"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Edmonton",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Public Places By-Law - 14614 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.500951,
+          53.509339
+        ],
+        "type": "Point"
+      },
+      "id": "d11309c6dc88ba8998a31983588ab8ff"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Maple Ridge",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Aggressive Solicitation By-Law, Maple Ridge Safer Streets - 7581-2019 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.52082,
+          49.259649
+        ],
+        "type": "Point"
+      },
+      "id": "d128bce001d06d8cde6092f90cc60e84"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Hope",
+        "OffenceType": "Panhandling / Mendier ",
+        "LawName": "Good Neighbour By-Law - 1240 (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -121.440209,
+          49.381051
+        ],
+        "type": "Point"
+      },
+      "id": "d1b27efd9d41fdcc68dbb563560e29b6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Airdrie",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Public Behaviour By-Law - B-09 / 2007 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -114.01118,
+          51.297793
+        ],
+        "type": "Point"
+      },
+      "id": "d1b55addc15c8f1b40a3ed8da519d77a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saint-Jean-Sur Richelieu",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Réglement Concernant les Nuisances, la Salubrité et la Sécurité et Abrogeant le Réglement No.0693 et ses Amendments - (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.330208,
+          45.303733
+        ],
+        "type": "Point"
+      },
+      "id": "d1d8649dc123ca2194b7ce6eedd3588a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "North Bay",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Waste Management By-Law - 2010-108 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.416621,
+          46.273112
+        ],
+        "type": "Point"
+      },
+      "id": "d1e5678ce32d6747cba6a9dcbd10eed8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Penticton",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Nuisance; Good Neighbour By-Law - 2012-5030 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.55288,
+          49.494124
+        ],
+        "type": "Point"
+      },
+      "id": "d218240e8f3ba762860e4fb9551aa03e"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ottawa",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks and Facilities By-Law - 2004-276 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -76.081849,
+          45.294314
+        ],
+        "type": "Point"
+      },
+      "id": "d3649dbf320a1499211ba53ae768b9a7"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Pelham",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Public Nuisance By-Law - 2970 (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.354212,
+          43.023116
+        ],
+        "type": "Point"
+      },
+      "id": "d51e8d9d6a6d4e9764ef128e317e69a8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Sidney",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Parks By-Law - 1688 (2001)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.398441,
+          48.651734
+        ],
+        "type": "Point"
+      },
+      "id": "d51f82ffa50f29af1b1673da8c45dcba"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saguenay",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Codification administrative du réglement VS-R-2007-49 Relatif à la paix et au bon ordre dans la ville de Saguenay - (2007), (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -71.071242,
+          48.403313
+        ],
+        "type": "Point"
+      },
+      "id": "d5b3859a6e649e20b139eb057ef1be48"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Portage la Prairie",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Parks By-Law - 7283 (1999)"
+      },
+      "geometry": {
+        "coordinates": [
+          -98.302735,
+          49.977916
+        ],
+        "type": "Point"
+      },
+      "id": "d64c50d08a7858fe2041ca6fca87b008"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Yellowknife",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Public Parks and Recreation Facilities By-Law - 4564 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -114.381053,
+          62.450323
+        ],
+        "type": "Point"
+      },
+      "id": "d77b52cb94066db4f282f1b055a61455"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Warman",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Community Standards By-Law - 2019-09 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -106.57773,
+          52.32535
+        ],
+        "type": "Point"
+      },
+      "id": "d82f1e1cf3d76d91a6e284c0c1972629"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "New Westminster",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks Regulation By-Law No. 3646, 1959 (1959, a. 2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.915658,
+          49.207568
+        ],
+        "type": "Point"
+      },
+      "id": "d86a376fa0eb71d324d75332b0689f16"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Hope",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Good Neighbour By-Law - 1240 (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -121.439491,
+          49.379605
+        ],
+        "type": "Point"
+      },
+      "id": "d8bc0c195da11f00cf59602f4461ef72"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Enderby",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Good Neighbourhood By-Law - 1517 ( 2013)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.13889,
+          50.553229
+        ],
+        "type": "Point"
+      },
+      "id": "d99fc9bc7db3aa6fe0692fdf767dc435"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "St. Thomas",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks By-Law - 96-2019 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -81.197551,
+          42.77484
+        ],
+        "type": "Point"
+      },
+      "id": "d9b69c32b38ce4e8df27a25d0cd1aa99"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brant",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks Use By-Law - 225-04 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.436021,
+          43.098111
+        ],
+        "type": "Point"
+      },
+      "id": "da5deccad541325f24c76cb4fae53646"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "New Westminister",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Panhandling By-Law - 6460 (1998)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.920725,
+          49.206804
+        ],
+        "type": "Point"
+      },
+      "id": "da9ab6a5b9fcbc6a793a53be3cf09d93"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "By-Law Concerning Cleanliness and Protection of Public Property and Street Furniture - 99-102 - (1999)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.575966,
+          45.49537
+        ],
+        "type": "Point"
+      },
+      "id": "dc82735041eb60ecbd72c3b511920464"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Cambridge",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Public Nuisance By-Law - 165-08 (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.358689,
+          43.427153
+        ],
+        "type": "Point"
+      },
+      "id": "dc93d31c12ea906a5819f1a74ae63b15"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Charlottetown",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Nuisance By-Law (1099 - 2016, 2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -63.133151,
+          46.251431
+        ],
+        "type": "Point"
+      },
+      "id": "dd1a2ee8d51b46c8f93fd670fa997923"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Truro",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Public Places By-Law - B130-006 (2006)"
+      },
+      "geometry": {
+        "coordinates": [
+          -63.302207,
+          45.36943
+        ],
+        "type": "Point"
+      },
+      "id": "dd4d7ca0d3328b5076fbe2d4f2f8b0f6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Coquitlam",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Street and Traffic By-Law - 4402 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.878799,
+          49.242912
+        ],
+        "type": "Point"
+      },
+      "id": "ddcb896f2e925f944dc25a0932682201"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Penticton",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Nuisance; Good Neighbour By-Law - 2012-5030 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.555464,
+          49.472298
+        ],
+        "type": "Point"
+      },
+      "id": "df03144f3b1dc814d474e9d46542dfc8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brooks",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Community Standards By-Law - 14 / 02 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -111.9026,
+          50.561483
+        ],
+        "type": "Point"
+      },
+      "id": "df37e875800cc3274d5ddf1b4176c196"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Delta",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Highways By-Law 6922 (2011)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.107745,
+          49.074936
+        ],
+        "type": "Point"
+      },
+      "id": "dfc1b2f4d5d2078fc729cca63c9c9d32"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Oliver",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Good Neighbour By-Law - 1357 (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.55179,
+          49.183756
+        ],
+        "type": "Point"
+      },
+      "id": "dfda9e711daf2ccfa1b932cc42f6664f"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Québec",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Règlement R.V.Q. 1091 - Règlement sur la paix et le bon ordre - (2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -71.246831,
+          46.804593
+        ],
+        "type": "Point"
+      },
+      "id": "e11a5f546c3cb658c908a58320928589"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Campbellton",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "A By-Law to Prevent Noise and Nuisance in the city of Campbellton - S-1 (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -66.635028,
+          47.990995
+        ],
+        "type": "Point"
+      },
+      "id": "e242acee48a251f277a0213ef088eef4"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brampton",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Park Lands By-Law - 161-83 (1983)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.778801,
+          43.693818
+        ],
+        "type": "Point"
+      },
+      "id": "e27fc9a4f44c0180abded6253989a064"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Moncton",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Use of Streets - T-410 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -64.794082,
+          46.09522
+        ],
+        "type": "Point"
+      },
+      "id": "e2a1e57934c1339abc4268319401b550"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brampton",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Public Nuisance By-Law - 136-2018 (2018)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.780304,
+          43.693165
+        ],
+        "type": "Point"
+      },
+      "id": "e2d5542c9db76e9d8e4480a4f64df788"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Chestermere",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Community Standards By-Law - 004-12 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.837803,
+          51.035783
+        ],
+        "type": "Point"
+      },
+      "id": "e379b7872259df7e4f2af2fc5279b542"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Squamish",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Camping By-Law - 2679 (2019)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.15597,
+          49.709074
+        ],
+        "type": "Point"
+      },
+      "id": "e420e081afc297f670e97c42c86f4adb"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Edmundston",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Prohibition of Loitering and Begging within Edmunston Limits - 16R (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -68.373064,
+          47.380358
+        ],
+        "type": "Point"
+      },
+      "id": "e42d8f3970612c1dde7fff6e064f4ea6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kingston",
+        "OffenceType": "Salvaging / Récupérer et réutiliser des déchets",
+        "LawName": "Solid Waste Management By-Law - 2014-5 (2013)"
+      },
+      "geometry": {
+        "coordinates": [
+          -76.49815,
+          44.229443
+        ],
+        "type": "Point"
+      },
+      "id": "e44e4aed36b9adbd65a215ae6e35e0bc"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "New Glasgow",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Public Places By-Law - 39 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -62.676933,
+          45.56227
+        ],
+        "type": "Point"
+      },
+      "id": "e4e8afd1db2411eeea0e595a8270acd9"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Oshawa",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Nuisance By-Law - 65-2009 (2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -78.865567,
+          43.915088
+        ],
+        "type": "Point"
+      },
+      "id": "e4f1956e07958a9eb83d4cd77e13dee7"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Stratford",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Noise and Nuisance By-Law - 30 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -63.091319,
+          46.225219
+        ],
+        "type": "Point"
+      },
+      "id": "e5556285b3d3209ada52b59f0627197a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Calgary",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Panhandling By-Law - 3M99 (1999)"
+      },
+      "geometry": {
+        "coordinates": [
+          -114.107339,
+          51.032753
+        ],
+        "type": "Point"
+      },
+      "id": "e5fc06f50bb81a98ab284a41ce99b97e"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Gatineau",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "By-Law Concerning the Maintenance of Public Peace and Good Order Throughout Gatineau - 42- (2003)"
+      },
+      "geometry": {
+        "coordinates": [
+          -75.699913,
+          45.537234
+        ],
+        "type": "Point"
+      },
+      "id": "e605aebf2fa637c5084a1a773a3cafbb"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Mississauga",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "The Parks By-Law - 186-05 (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.708705,
+          43.607786
+        ],
+        "type": "Point"
+      },
+      "id": "e6bdffa1c009cbea9f0c5c5096380a37"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Montague",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Montague Nuisance and Noise Control By-Law - 2014-02 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -62.648831,
+          46.166968
+        ],
+        "type": "Point"
+      },
+      "id": "e70352bb06e350d45ff680112c9b5d97"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Mission",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Street Nuisances; Good Neighbour By-Law - 5524 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.285145,
+          49.156418
+        ],
+        "type": "Point"
+      },
+      "id": "e764e334720e4fdc52188970479a0485"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Cold Lake",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Noise and Public Nuisance By-Law - 534-PL-14 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -110.177549,
+          54.463639
+        ],
+        "type": "Point"
+      },
+      "id": "e78aa8c125f77616a056f00a7e36cd1a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Charlottetown",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Nuisance By-Law (1099 - 2016, 2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -63.133151,
+          46.251431
+        ],
+        "type": "Point"
+      },
+      "id": "e7c0c44e9e427265b0d64ba8b6ba446b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Fort Saskatchewan",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Community Standards By-Law - C16-12 (2012)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.21745,
+          53.703477
+        ],
+        "type": "Point"
+      },
+      "id": "e7c46747df253c0ff900a9010a5c9786"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "British Columbia",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Safe Streets Act [SBC] Chapter 75 (2004)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.365001,
+          48.425121
+        ],
+        "type": "Point"
+      },
+      "id": "e951946e4436745449fa1e5fdee1d00d"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Vancouver",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Park By-Laws (consolidated) - (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.089667,
+          49.262591
+        ],
+        "type": "Point"
+      },
+      "id": "e96b3a5024df9d334657824e9f402e6b"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Vaughan",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Public Nuisance By-Law - 195-2000 (2017)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.567346,
+          43.851598
+        ],
+        "type": "Point"
+      },
+      "id": "edc8cb59916ddf679aff8b6395b78da7"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Sidney",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Streets and Traffic Regulation By-Law - 1966 (2010)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.399657,
+          48.649792
+        ],
+        "type": "Point"
+      },
+      "id": "ef3ddeb452ec10d3b4c4a836b08b732a"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "New Westminster",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Panhandling By-Law - 6460 (1998)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.914294,
+          49.209478
+        ],
+        "type": "Point"
+      },
+      "id": "ef6393281c77c0ab5d0b525ac707bae2"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Abbotsford",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Street Nuisances; Good Neighbour By-Law - 1256 (2003)"
+      },
+      "geometry": {
+        "coordinates": [
+          -122.332211,
+          49.047853
+        ],
+        "type": "Point"
+      },
+      "id": "efb5925db329c83156a25f1f549bbcd7"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Duncan",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Streets and Parking Regulations By-Law - 3101 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -123.709357,
+          48.775661
+        ],
+        "type": "Point"
+      },
+      "id": "f2155340c56f3d1dad79a17a4351f738"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Brantford",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Parks By-Law - 420 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -80.276133,
+          43.165555
+        ],
+        "type": "Point"
+      },
+      "id": "f228ac445a2b909a1dd639e993e5a11f"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Thunder Bay",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Traffic (Roads and Highways) By-Law - 40 / 2016 (2016)"
+      },
+      "geometry": {
+        "coordinates": [
+          -89.358739,
+          48.45223
+        ],
+        "type": "Point"
+      },
+      "id": "f3956a1be5a5ee1a4379914b3b3acd10"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Peterborough",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Public Nuisance - 15-144 (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -78.325893,
+          44.304005
+        ],
+        "type": "Point"
+      },
+      "id": "f405a8c2d16ff159ce76e9b1d6c22649"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Drummondville",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Title IX: De L'Ordre et De La Paix Publique-Chapitre 2: Troubler La Paix-Section II- Assemblées et Défilés- Sous Section 2: Assemblée ou Défilé dans un Lieu Public - (2015)"
+      },
+      "geometry": {
+        "coordinates": [
+          -72.548809,
+          45.839294
+        ],
+        "type": "Point"
+      },
+      "id": "f48caa952f5f1b6ffc051e12c143adfb"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "By-Law on the Standards of Safety and Conduct to be Observed by Persons on the Rolling Stock and Buildings Operated by or For The Societe De Transport De Montreal - (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.598705,
+          45.477658
+        ],
+        "type": "Point"
+      },
+      "id": "f4e6dce0b87e5180eb28312ef5bce2e8"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Laval",
+        "OffenceType": "Disorder / Occasionner des troubles",
+        "LawName": "Règlement numéro L-4510 - Concernant l’ordre, la sécurité ainsi que les heures d’ouverture et de fermeture des parcs municipaux - 1979 (2018)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.712286,
+          45.609443
+        ],
+        "type": "Point"
+      },
+      "id": "f5f98ae7493d8ed53ba9fc2504756657"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Markham",
+        "OffenceType": "Loitering / Flâner",
+        "LawName": "Prohibit and Regulate Public Nuisances - 2018-55 (2018)"
+      },
+      "geometry": {
+        "coordinates": [
+          -79.3071,
+          43.887087
+        ],
+        "type": "Point"
+      },
+      "id": "f6388d495a4f2bc02140e8b5a160176f"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Ville de Montréal",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Reglément Sur Le Civisme, Le Respect et la Propreté - CA-24-085 - (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.626163,
+          45.510025
+        ],
+        "type": "Point"
+      },
+      "id": "f69adea668b808ddca817d1e08f3aae1"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Bathurst",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "Anti-loitering and Begging By-Law - 2005-13 (2005)"
+      },
+      "geometry": {
+        "coordinates": [
+          -65.649823,
+          47.613125
+        ],
+        "type": "Point"
+      },
+      "id": "f6ae3c56c9f93fd5579a6b934b75a898"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Saint-Jean-Sur Richelieu",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Réglement Concernant les Nuisances, la Salubrité et la Sécurité et Abrogeant le Réglement No.0693 et ses Amendments - (2020)"
+      },
+      "geometry": {
+        "coordinates": [
+          -73.25241,
+          45.303737
+        ],
+        "type": "Point"
+      },
+      "id": "f87ccc42cad3773b5af89cc7446ee6d6"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Cold Lake",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Noise and Public Nuisance By-Law - 534-PL-14 (2014)"
+      },
+      "geometry": {
+        "coordinates": [
+          -110.178432,
+          54.464208
+        ],
+        "type": "Point"
+      },
+      "id": "f94951eaf494c7e394ca245f4e00e8da"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Portage la Prairie",
+        "OffenceType": "Obstructing / Provoquer une obstruction",
+        "LawName": "Parks By-Law - 7283 (1999)"
+      },
+      "geometry": {
+        "coordinates": [
+          -98.296389,
+          49.974206
+        ],
+        "type": "Point"
+      },
+      "id": "fa4846e78c06a824f211a68aa7874f76"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Kamloops",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Panhandling By-Law - 24-38 (2003)"
+      },
+      "geometry": {
+        "coordinates": [
+          -120.38673,
+          50.6482
+        ],
+        "type": "Point"
+      },
+      "id": "fab192037bfff5b948ec15654f118357"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Vernon",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Parks and Public Places By-Law - 5057 (2007)"
+      },
+      "geometry": {
+        "coordinates": [
+          -119.27152,
+          50.263993
+        ],
+        "type": "Point"
+      },
+      "id": "fb6989985e76d7e85fa4c2e2b2edab92"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Camrose",
+        "OffenceType": "Panhandling / Mendier",
+        "LawName": "The Camrose Public Property By-Law - 2338 / 02 (2002 / 2009)"
+      },
+      "geometry": {
+        "coordinates": [
+          -112.83148,
+          53.008184
+        ],
+        "type": "Point"
+      },
+      "id": "fceb954964b682505c00eea5105f6f9e"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Fort Saskatchewan",
+        "OffenceType": "Sheltering / Construire un abri de fortune",
+        "LawName": "Open Space By-Law - 1952 (1994)"
+      },
+      "geometry": {
+        "coordinates": [
+          -113.208452,
+          53.693875
+        ],
+        "type": "Point"
+      },
+      "id": "fd79a958995f5124eac24ffa12df3aba"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "City": "Hope",
+        "OffenceType": "Resting or Sleeping / Se reposer ou S'allonger au sol",
+        "LawName": "Good Neighbour By-Law - 1240 (2008)"
+      },
+      "geometry": {
+        "coordinates": [
+          -121.440561,
+          49.378461
+        ],
+        "type": "Point"
+      },
+      "id": "fddb8b9f52185281604b4be92f5f8edf"
+    }
+  ],
+  "type": "FeatureCollection"
+}
+        	});
+
+        	map.addLayer({
+        		'id':'Panhandling/Mendier',
+        		'type':'circle',
+        		'source':'Laws',
+        		'filter':['==', ['get', 'OffenceType'], 'Panhandling / Mendier'],
+        		'layout' : {
+        			//make layer visible by default
+        			'visibility':'visible'
+        		},
+        		'paint': {
+        			'circle-color': colors[0],
+          			'circle-radius': 5,
+          			'circle-opacity':0.7
+        		}
+        	});
+
+        	map.addLayer({
+        		'id':'Obstructing/Provoquer une obstruction',
+        		'type':'circle',
+        		'source':'Laws',
+        		'filter':['==', ['get', 'OffenceType'], 'Obstructing / Provoquer une obstruction'],
+        		'layout' : {
+        			//make layer visible by default
+        			'visibility':'visible'
+        		},
+        		'paint': {
+        			'circle-color': colors[1],
+          			'circle-radius': 5,
+          			'circle-opacity':0.7
+        		}
+        	});
+
+        	map.addLayer({
+        		'id':'Disorder/Occasionner des troubles',
+        		'type':'circle',
+        		'source':'Laws',
+        		'filter':['==', ['get', 'OffenceType'], 'Disorder / Occasionner des troubles'],
+        		'layout' : {
+        			//make layer visible by default
+        			'visibility':'visible'
+        		},
+        		'paint': {
+        			'circle-color': colors[2],
+          			'circle-radius': 5,
+          			'circle-opacity':0.7
+        		}
+        	});
+
+        	map.addLayer({
+        		'id':'Sheltering/Construire un abri de fortune',
+        		'type':'circle',
+        		'source':'Laws',
+        		'filter':['==', ['get', 'OffenceType'], 'Sheltering / Construire un abri de fortune'],
+        		'layout' : {
+        			//make layer visible by default
+        			'visibility':'visible'
+        		},
+        		'paint': {
+        			'circle-color': colors[3],
+          			'circle-radius': 5,
+          			'circle-opacity':0.7
+        		}
+        	});
+
+
+        	map.addLayer({
+        		'id':'Salvaging/Récupérer et réutiliser des déchets',
+        		'type':'circle',
+        		'source':'Laws',
+        		'filter':['==', ['get', 'OffenceType'], 'Salvaging / Récupérer et réutiliser des déchets'],
+        		'layout' : {
+        			//make layer visible by default
+        			'visibility':'visible'
+        		},
+        		'paint': {
+        			'circle-color': colors[4],
+          			'circle-radius': 5,
+          			'circle-opacity':0.7
+        		}
+        	});
+
+        	map.addLayer({
+        		'id':'Loitering/Flâner',
+        		'type':'circle',
+        		'source':'Laws',
+        		'filter':['==', ['get', 'OffenceType'], 'Loitering / Flâner'],
+        		'layout' : {
+        			//make layer visible by default
+        			'visibility':'visible'
+        		},
+        		'paint': {
+        			'circle-color': colors[5],
+          			'circle-radius': 5,
+          			'circle-opacity':0.7
+        		}
+        	});
+
+        	map.addLayer({
+        		'id':'Resting/Se reposer',
+        		'type':'circle',
+        		'source':'Laws',
+        		'filter':['==', ['get', 'OffenceType'], "Resting or Sleeping / Se reposer ou S'allonger au sol"],
+        		'layout' : {
+        			//make layer visible by default
+        			'visibility':'visible'
+        		},
+        		'paint': {
+        			'circle-color': colors[6],
+          			'circle-radius': 5,
+          			'circle-opacity':0.7
+        		}
+        	});
+
+
+    		map.on('click', 'Panhandling/Mendier', function(e){
+        		var coordinates = e.features[0].geometry.coordinates.slice();
+        		var City = e.features[0].properties.City;
+        		var OT = e.features[0].properties.OffenceType;
+        		var Law = e.features[0].properties.LawName;
+
+      			while (Math.abs(e.lngLat.lng - coordinates [0]) > 180) {
+        		coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      		}
+
+      		new mapboxgl.Popup({ offset: [0, -15] })
+        		.setLngLat(coordinates)
+        		.setHTML('<h3>' + City + '</h3><h4>' +'Offence Type: ' + OT + '</h4><p>' + Law + '</p>')
+        		.addTo(map);
+    		});
+
+    		map.on('mouseenter', 'Panhandling/Mendier', function() {
+       			 map.getCanvas().style.cursor = 'pointer';
+      		});
+      		map.on('mouseleave', 'Panhandling/Mendier', function(){
+       			map.getCanvas().style.cursor = '';
+      		});
+
+      		map.on('click', 'Obstructing/Provoquer une obstruction', function(e){
+        		var coordinates = e.features[0].geometry.coordinates.slice();
+        		var City = e.features[0].properties.City;
+        		var OT = e.features[0].properties.OffenceType;
+        		var Law = e.features[0].properties.LawName;
+
+      			while (Math.abs(e.lngLat.lng - coordinates [0]) > 180) {
+        		coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      		}
+
+      		new mapboxgl.Popup({ offset: [0, -15] })
+        		.setLngLat(coordinates)
+        		.setHTML('<h3>' + City + '</h3><h4>' +'Offence Type: ' + OT + '</h4><p>' + Law + '</p>')
+        		.addTo(map);
+    		});
+
+    		map.on('mouseenter', 'Obstructing/Provoquer une obstruction', function() {
+       			 map.getCanvas().style.cursor = 'pointer';
+      		});
+      		map.on('mouseleave', 'Obstructing/Provoquer une obstruction', function(){
+       			map.getCanvas().style.cursor = '';
+      		});
+
+
+      		map.on('click', 'Disorder/Occasionner des troubles', function(e){
+        		var coordinates = e.features[0].geometry.coordinates.slice();
+        		var City = e.features[0].properties.City;
+        		var OT = e.features[0].properties.OffenceType;
+        		var Law = e.features[0].properties.LawName;
+
+      			while (Math.abs(e.lngLat.lng - coordinates [0]) > 180) {
+        		coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      		}
+
+      		new mapboxgl.Popup({ offset: [0, -15] })
+        		.setLngLat(coordinates)
+        		.setHTML('<h3>' + City + '</h3><h4>' +'Offence Type: ' + OT + '</h4><p>' + Law + '</p>')
+        		.addTo(map);
+    		});
+
+    		map.on('mouseenter', 'Disorder/Occasionner des troubles', function() {
+       			 map.getCanvas().style.cursor = 'pointer';
+      		});
+      		map.on('mouseleave', 'Disorder/Occasionner des troubles', function(){
+       			map.getCanvas().style.cursor = '';
+      		});
+
+
+      		map.on('click', 'Sheltering/Construire un abri de fortune', function(e){
+        		var coordinates = e.features[0].geometry.coordinates.slice();
+        		var City = e.features[0].properties.City;
+        		var OT = e.features[0].properties.OffenceType;
+        		var Law = e.features[0].properties.LawName;
+
+      			while (Math.abs(e.lngLat.lng - coordinates [0]) > 180) {
+        		coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      		}
+
+      		new mapboxgl.Popup({ offset: [0, -15] })
+        		.setLngLat(coordinates)
+        		.setHTML('<h3>' + City + '</h3><h4>' +'Offence Type: ' + OT + '</h4><p>' + Law + '</p>')
+        		.addTo(map);
+    		});
+
+    		map.on('mouseenter', 'Sheltering/Construire un abri de fortune', function() {
+       			 map.getCanvas().style.cursor = 'pointer';
+      		});
+      		map.on('mouseleave', 'Sheltering/Construire un abri de fortune', function(){
+       			map.getCanvas().style.cursor = '';
+      		});
+
+
+      		map.on('click', 'Salvaging/Récupérer et réutiliser des déchets', function(e){
+        		var coordinates = e.features[0].geometry.coordinates.slice();
+        		var City = e.features[0].properties.City;
+        		var OT = e.features[0].properties.OffenceType;
+        		var Law = e.features[0].properties.LawName;
+
+      			while (Math.abs(e.lngLat.lng - coordinates [0]) > 180) {
+        		coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      		}
+
+      		new mapboxgl.Popup({ offset: [0, -15] })
+        		.setLngLat(coordinates)
+        		.setHTML('<h3>' + City + '</h3><h4>' +'Offence Type: ' + OT + '</h4><p>' + Law + '</p>')
+        		.addTo(map);
+    		});
+
+    		map.on('mouseenter', 'Salvaging/Récupérer et réutiliser des déchets', function() {
+       			 map.getCanvas().style.cursor = 'pointer';
+      		});
+      		map.on('mouseleave', 'Salvaging/Récupérer et réutiliser des déchets', function(){
+       			map.getCanvas().style.cursor = '';
+      		});  
+
+
+
+      		map.on('click', 'Loitering/Flâner', function(e){
+        		var coordinates = e.features[0].geometry.coordinates.slice();
+        		var City = e.features[0].properties.City;
+        		var OT = e.features[0].properties.OffenceType;
+        		var Law = e.features[0].properties.LawName;
+
+      			while (Math.abs(e.lngLat.lng - coordinates [0]) > 180) {
+        		coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      		}
+
+      		new mapboxgl.Popup({ offset: [0, -15] })
+        		.setLngLat(coordinates)
+        		.setHTML('<h3>' + City + '</h3><h4>' +'Offence Type: ' + OT + '</h4><p>' + Law + '</p>')
+        		.addTo(map);
+    		});
+
+    		map.on('mouseenter', 'Loitering/Flâner', function() {
+       			 map.getCanvas().style.cursor = 'pointer';
+      		});
+      		map.on('mouseleave', 'Loitering/Flâner', function(){
+       			map.getCanvas().style.cursor = '';
+      		}); 
+
+
+      		map.on('click', 'Resting/Se reposer', function(e){
+        		var coordinates = e.features[0].geometry.coordinates.slice();
+        		var City = e.features[0].properties.City;
+        		var OT = e.features[0].properties.OffenceType;
+        		var Law = e.features[0].properties.LawName;
+
+      			while (Math.abs(e.lngLat.lng - coordinates [0]) > 180) {
+        		coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      		}
+
+      		new mapboxgl.Popup({ offset: [0, -15] })
+        		.setLngLat(coordinates)
+        		.setHTML('<h3>' + City + '</h3><h4>' +'Offence Type: ' + OT + '</h4><p>' + Law + '</p>')
+        		.addTo(map);
+    		});
+
+    		map.on('mouseenter', 'Resting/Se reposer', function() {
+       			 map.getCanvas().style.cursor = 'pointer';
+      		});
+      		map.on('mouseleave', 'Resting/Se reposer', function(){
+       			map.getCanvas().style.cursor = '';
+      		});
+
+
+        });
+
+        //enumerate ids of the layers
+        var toggleableLayerIds = ['Panhandling/Mendier', 'Obstructing/Provoquer une obstruction', 'Disorder/Occasionner des troubles', 'Sheltering/Construire un abri de fortune', 'Salvaging/Récupérer et réutiliser des déchets', 'Loitering/Flâner', 'Resting/Se reposer'];
+
+        //set up the corresponding toggle button for each layer
+        for (var i = 0; i< toggleableLayerIds.length; i++) {
+        	var id = toggleableLayerIds [i];
+
+        	var link = document.createElement('a');
+        	link.href = '#';
+        	link.className = 'active';
+        	link.textContent = id;
+
+        	link.onclick = function(e) {
+        		var clickedLayer = this.textContent;
+        		e.preventDefault();
+        		e.stopPropagation();
+
+        		var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+        //toggle layer visibility by changing the layout object's visibility property
+
+        		if (visibility === 'visible') {
+        			map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+        			this.className = '';
+        		} else {
+        			this.className = 'active';
+        			map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        		}
+
+        	};
+
+        	var layers = document.getElementById('menu');
+        	layers.appendChild(link);
+
+        }
+
+</script>
+ 
+</body>
+</html>
