@@ -24,23 +24,61 @@
 .tabBar a{
 	text-decoration:none;
 	font-family:Open Sans;
-	font-size:21px;
+	font-size:18px;
 	background-color:lightgray;
 	padding:10px 90px 10px 90px;
+}
+
+.active {
+	font-style:bold;
 }
 
 .content {
 	display:grid;
 	grid-template-columns:1fr 1fr 1fr 1fr;
+	grid-template-rows:0.01fr 1fr;
 	grid-gap:1em;
 	grid-template-areas:
-		". main main main";
-	margin-top:100px;
+		"cap cap cap cap"
+		"lang main main main";
+	width:100vw;
+}
+
+.lang {
+	font-family:freight-text-pro, serif;
+	font-weight:300;
+	font-size:1em;
+	cursor:pointer;
+	z-index:1;
+	grid-area:lang;
+	padding-top:25px;
+	padding-left:25px;
+	margin-top:50px;
+}
+
+#Eng {
+	border-right:1px solid rgb(109,13,112);
+	padding-right: 8px;
+}
+
+.lang a {
+	color:rgb(109,13,112);
+	padding:3px;
+	text-decoration:none;
+}
+
+a.active {
+	font-weight:bold;
 }
 
 /*.infographic {
 	grid-area:main;
 }*/
+
+.caption {
+	padding:10px;
+	grid-area:cap;
+}
 
 .infographic img {
 /*	transform:scale(0.25);*/
@@ -74,6 +112,11 @@ h3 {
 	font-size:21px;
 	grid-area:main;
 	padding:30px 50px 30px 50px;
+	margin-top:50px;
+}
+
+.writeUp p {
+	padding-bottom:2%;
 }
 
 .writeUp a {
@@ -94,10 +137,6 @@ h3 {
   	margin-top:-230px;
   	margin-bottom:-210px;
  }
-
-.par {
-	padding-bottom:2%;
-}
 
 #par5 {
 	font-style:italic;
@@ -157,12 +196,16 @@ h3 {
 
 @media only screen and (max-width:600px){
 	.content {
-		display:grid;
-		grid-template-columns:1fr 1fr;
-		grid-gap:1em;
+		grid-template-columns:1fr 1fr 1fr 1fr 0.01fr;
+		grid-template-rows:0.01fr 0.01fr 1fr;
 		grid-template-areas:
-			"main main";
-		margin-top:100px;
+		"cap cap cap cap cap"
+		". . . lang lang"
+		"main main main main main";
+	}
+
+	.writeUp{
+		padding:20px 0px 0px 20px;
 	}
 
 	.tabBar a {
@@ -178,12 +221,16 @@ h3 {
 
 @media only screen and (min-width: 768px) and (max-width:1000px){
 	.content {
-		display:grid;
-		grid-template-columns:1fr 1fr 1fr 1fr;
-		grid-gap:1em;
+		grid-template-columns:1fr 1fr 1fr 1fr 0.01fr;
+		grid-template-rows:0.01fr 0.01fr 1fr;
 		grid-template-areas:
-			"main main main main";
-		margin-top:100px;
+		"cap cap cap cap cap"
+		". . . lang lang"
+		"main main main main main";
+	}
+
+	.writeUp{
+		padding:20px 0px 0px 20px;
 	}
 
 	.tabBar a {

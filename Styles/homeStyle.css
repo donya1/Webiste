@@ -105,6 +105,10 @@ a {
 	padding:3px;
 }
 
+a.active {
+	font-weight:bold;
+}
+
 .writeUp {
 	font-family: freight-text-pro, serif;
 	line-height:1.5;
@@ -126,6 +130,15 @@ a {
 		grid-template-areas: 
 			"main main main"
 			"con con lang";
+	}
+
+	.langWrap{
+		padding-top:27px;
+		font-size:12px;
+	}
+
+	#Eng {
+		border:none;
 	}
 
 	.TwitterFeed {
@@ -178,6 +191,15 @@ a {
         "main main main"
         "con con lang";
     }
+
+	.langWrap{
+		padding-top:27px;
+		font-size:12px;
+	}
+
+	#Eng {
+		border:none;
+	}
 
     .TwitterFeed {
     	display:none;
